@@ -1,0 +1,106 @@
+mat-icon {
+  width: 38px;
+}
+
+.demo-section {
+  padding: 0px;
+  margin: 0px;
+}
+
+.demo-section {
+  color: green;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+}
+
+.example-container {
+  width: auto;
+  height: 100%;
+  border: 1px solid #555;
+  background: #eee;
+}
+
+.side-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+mat-drawer-content button {
+  background-color: #e3f2fd;
+  box-shadow: 5px 5px 5px;
+  margin: 20px;
+  padding: 0px;
+  width: 40px;
+}
+
+ng-container button {
+  margin-left: 90px;
+}
+
+.side-container ul {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0px;
+  margin: 0px;
+}
+
+.smooth-transition {
+  transition: ease-out 900ms;
+  color: rgba(31, 58, 255, 0.5);
+}
+
+.smooth-transition:hover {
+  transition: ease-in 400ms;
+}
+
+.elementsLi li {
+  list-style-type: none;
+  transition: ease-out 900ms;
+  height: 230px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+}
+
+.activeLiElement {
+  filter: drop-shadow(2px 2px 2px rgba(31, 58, 255, 1));
+  border: 1px solid black;
+}
+
+.elementsLi li:hover {
+  cursor: pointer;
+  transition: ease-in 100ms;
+  filter: drop-shadow(2px 2px 2px rgba(31, 58, 255, 1));
+  border: 1px solid black;
+}
+
+.elementsLi li:active {
+  transition: ease-in-out 100ms;
+  border: 1px solid rgba(31, 58, 255, 1);
+}
+
+li p {
+  margin-bottom: 0px;
+}
+
+#order-icon {
+  width: 48px;
+  height: 48px;
+}

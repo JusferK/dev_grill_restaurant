@@ -1,0 +1,74 @@
+.general_container {
+    height: 87%;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-btn {
+    height: 10%;
+}
+
+.edit-btn button {
+    align-self: self-end;
+}
+
+.info-container {
+    height: 93%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+}
+
+.password_input {
+    margin-left: 35px;
+    margin-bottom: 0px;
+    height: 90px;    
+}
+
+.form_input {
+    border: 1px solid black;
+}
+
+.password_input input {
+    width: 208px;
+    height: 38px;
+}
+
+.btn_section {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.password_view:hover {
+    cursor: pointer;
+}
+
+.smooth_transition {
+    transition: ease-in 120ms;
+    margin: 0px;
+}
+
+.password_container {
+    height: 50px;
+}
+
+input {
+    text-align: center;
+}
+
+.notification {
+    height: 7%;
+    margin: 0;
+    transition: ease-in 200ms;
+    transition: ease-out 400ms;
+}
+
+.notification p {
+    text-align: center;
+    width: 100%;
+    margin: 0;
+}

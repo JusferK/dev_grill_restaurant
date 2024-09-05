@@ -1,0 +1,39 @@
+.center {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    height: 120px;
+}
+
+.center-2 {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    height: 45%;
+    width: auto;
+}
+
+.gap {
+    margin-top: 125px;
+}
+
+.form-container {
+    width: 40%;
+}
+
+.form-container input {
+    width: 95%;
+}
+
+.together {
+    display: flex;
+    flex-direction: row;
+}
+
+.together img {
+    margin-left: 15px;
+}
+
+.together img:hover {
+    cursor: pointer;
+}

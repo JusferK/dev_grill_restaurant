@@ -1,0 +1,34 @@
+<nav class="navbar center" style="background-color: #e3f2fd;">
+    <img src="logo.svg" alt="dev grill logo">
+</nav>
+<div class="center-2 gap">
+    <form class="form-container" [formGroup]="loginForm">
+        <div class="mb-5">
+          <label for="text" class="form-label">User</label>
+          <input type="email" class="form-control" [ngClass]="{'is-invalid': hasErrors('user', 'required')}" id="email" aria-describedby="emailHelp" formControlName="user">
+          @if(hasErrors('user', 'required')) {
+              <p class="text-danger">User input cannot be empty</p>
+            }
+        </div>
+        <div class="mb-5">
+          <label for="password" class="form-label">Password</label>
+          <div class="together">
+            <input type="{{ !isVisible ? 'password' : 'text' }}" class="form-control" id="password" formControlName="password" [ngClass]="{'is-invalid': hasErrors('password', 'required')}">
+            <img src="{{ !isVisible ? 'visibility.svg' : 'visibility-off.svg' }}" (click)="toggle()">
+          </div>
+          @if(hasErrors('password', 'required')) {
+            <p class="text-danger">Password input cannot be empty</p>
+        }
+
+        @if(attemptWasMade()) {
+            <p class="text-danger">Incorrect user or password, try again.</p>
+        }
+        </div>
+
+        @if(loginForm.get('user')?.value === '' || loginForm.get('password')?.value === '') {
+            <button type="button" class="btn btn-outline-primary" disabled>Login</button>
+        } @else {
+            <button type="button" class="btn btn-outline-primary" (click)="onSubmit()">Login</button>
+        }
+    </form>
+</div>

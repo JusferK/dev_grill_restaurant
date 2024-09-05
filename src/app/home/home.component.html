@@ -1,0 +1,66 @@
+<mat-drawer-container class="example-container">
+    <mat-drawer mode="side" class="side-container" opened="{{ sideNavOpen() }}">
+        <ul class="elementsLi">
+            <li 
+            (mouseover)="mouseOverHandle('home_icon')"
+            (mouseout)="mouseOutHandler(0)"
+            [routerLink]="['/']"
+            routerLinkActive="router-link-active"
+            [ngClass]="{'activeLiElement': iconAreActive()[0]}"
+            (click)="clickHandler(0, 'Home')"
+            >
+                <img src="home_icon.svg" alt="home icon">
+                <p>{{ iconName()[0] }}</p>
+            </li>
+            <li 
+            (mouseover)="mouseOverHandle('inventory_icon')"
+            (mouseout)="mouseOutHandler(1)"
+            [routerLink]="['/inventory']"
+            routerLinkActive="router-link-active"
+            [ngClass]="{'activeLiElement': iconAreActive()[1]}"
+            (click)="clickHandler(1, 'Inventory')"
+            >
+                <img src="inventory_icon.svg" alt="inventory icon">
+                <p>{{ iconName()[1] }}</p>
+            </li>
+            <li 
+            (mouseover)="mouseOverHandle('menu_icon')"
+            (mouseout)="mouseOutHandler(2)"
+            [routerLink]="['/menu']"
+            routerLinkActive="router-link-active"
+            [ngClass]="{'activeLiElement': iconAreActive()[2]}"
+            (click)="clickHandler(2, 'Menu')"
+            >
+                <img src="menu_icon.svg" alt="menu icon">
+                <p>{{ iconName()[2] }}</p>
+            </li>
+            <li 
+            (mouseover)="mouseOverHandle('food_order')" 
+            (mouseout)="mouseOutHandler(3)" 
+            [routerLink]="['/order']" 
+            routerLinkActive="router-link-active" 
+            [ngClass]="{'activeLiElement': iconAreActive()[3]}"
+            (click)="clickHandler(3, 'Orders')"
+            >
+                <mat-icon matBadge="0" id="order-icon"><img src="food_order.svg" alt="order icon"></mat-icon>
+                <p id="special-icon">{{ iconName()[3] }}</p>
+            </li>
+        </ul>
+    </mat-drawer>
+    <mat-drawer-content>
+        <div class="d-flex justify-content-between">
+            <button mat-mini-fab (click)="sideNavClicked()" id="hideBar">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <ng-container *ngIf="isAtHome()"> 
+                <button mat-button [matMenuTriggerFor]="menu" color="openProfile"><img src="user_icon.svg" alt="user icon"></button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="homeClickHandler()">Home</button>
+                    <button mat-menu-item (click)="profileClickHandler()">Profile</button>
+                    <button mat-menu-item (click)="logoutHandler()">Log out</button>
+                </mat-menu>
+            </ng-container>
+        </div>
+        <router-outlet ></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>  

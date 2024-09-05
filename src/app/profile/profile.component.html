@@ -1,0 +1,58 @@
+<div class="general_container">
+    <form [formGroup]="updateForm" class="info-container">
+        <div class="mb-3">
+            <label for="admin-id" class="form-label">Id</label>
+            <input type="text" id="admin-id" class="form-control form_input" formControlName="idAdministrator">
+        </div>
+        <div class="mb-3">
+            <label for="admin-user" class="form-label">User</label>
+            <input type="text" id="admin-user" class="form-control form_input" formControlName="user">
+        </div>
+        <div class="mb-3 password_input">
+            <label for="admin-user">Password</label>
+            <div class="d-flex password_container">
+                <input 
+                type="{{ isPasswordVisible() ? 'text' : 'password' }}"
+                id="admin-user"
+                class="form-control p-2 w-100 form_input"
+                formControlName="password"
+                [ngClass]="{'is-invalid': hasError()}"
+                />
+                <img 
+                src="{{ isPasswordVisible() ? 'visibility-off.svg' : 'visibility.svg' }}"
+                alt="icon" (click)="toggleViewPassword()"
+                class="password_view p-1 flex-shrink-1"
+                id="visibility_icon"
+                width="35px"
+                height="35px"
+                />
+            </div>
+            @if(hasError()) {
+                <p class="text-danger smooth_transition">Password cannot be empty</p>
+            }
+        </div>
+        <div class="btn_section">
+            <button 
+                type="button"
+                class="btn"
+                (click)="toggleEdit()"
+                [ngClass]="{'btn-outline-danger': editSignal(), 'btn-outline-primary': !editSignal()}"
+                >
+                {{ editBtnText() }}
+            </button>
+            <button 
+                type="button"
+                class="btn btn-primary"
+                (click)="onSubmit()"
+                [disabled]="editSignal() && !hasError() ? false : true"
+                >
+                Update
+            </button>
+        </div>
+    </form>
+    <ng-container *ngIf="notificationSignalSend()">
+        <div class="alert alert-success notification" role="alert">
+            <p>password has been updated!</p>
+        </div>
+    </ng-container>
+</div>
