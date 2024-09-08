@@ -1,3 +1,7 @@
+::-webkit-scrollbar {
+  display: none;
+}
+
 mat-icon {
   width: 38px;
 }

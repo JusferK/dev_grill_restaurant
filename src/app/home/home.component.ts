@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
@@ -19,7 +19,7 @@ import { ProfileServiceService } from '../services/profile-service.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
 
   sideNavOpen = signal<Boolean>(true);
   mouseOverSignal = signal<Boolean>(false);
@@ -30,6 +30,28 @@ export class HomeComponent {
   isAtHome = signal<boolean>(true);
   private _profileService = inject(ProfileServiceService);
   private _router = inject(Router);
+
+  ngOnInit(): void {
+    const urlDirectories = ['inventory', 'menu', 'order'];
+
+    urlDirectories.forEach((directory: string, index: number) => {
+      if(this._router.url.includes(directory)) {
+        this.isAtHome.set(false);
+
+        const temporalArray_iconName = this.iconName();
+        const temporalArray_iconAreActive = this.iconAreActive();
+          
+        temporalArray_iconName[this.onSection()] = '';
+        temporalArray_iconName[index + 1] = directory;
+        temporalArray_iconAreActive[this.onSection()] = false;
+        temporalArray_iconAreActive[index + 1] = true;
+          
+        this.onSection.set(index + 1);
+        this.iconName.set(temporalArray_iconName);
+        this.iconAreActive.set(temporalArray_iconAreActive);
+      }
+    });
+  }
 
   sideNavClicked(): void {
     this.sideNavOpen() ? this.sideNavOpen.set(false) : this.sideNavOpen.set(true);
@@ -57,7 +79,7 @@ export class HomeComponent {
         }
         break;
       case 'food_order':
-        if(!this.iconAreActive()[1]) {
+        if(!this.iconAreActive()[3]) {
           this.indexIcon.set(3);
           temporalArray[this.indexIcon()] = 'Orders';
         }
@@ -80,26 +102,24 @@ export class HomeComponent {
 
   clickHandler(index: number, nameToPlace: string) {
 
-    if(this.onSection() !== index) {
-
-      if(index === 0 && nameToPlace) {
-        this.isAtHome.set(true);
-      } else {
-        this.isAtHome.set(false);
-      }
-
-      const temporalArray_iconName = this.iconName();
-      const temporalArray_iconAreActive = this.iconAreActive();
-      
-      temporalArray_iconName[this.onSection()] = '';
-      temporalArray_iconName[index] = nameToPlace;
-      temporalArray_iconAreActive[this.onSection()] = false;
-      temporalArray_iconAreActive[index] = true;
-
-      this.onSection.set(index);
-      this.iconName.set(temporalArray_iconName);
-      this.iconAreActive.set(temporalArray_iconAreActive);
+    if(index === 0 && nameToPlace) {
+      this.isAtHome.set(true);
+    } else {
+      this.isAtHome.set(false);
     }
+
+    const temporalArray_iconName = this.iconName();
+    const temporalArray_iconAreActive = this.iconAreActive();
+    
+    temporalArray_iconName[this.onSection()] = '';
+    temporalArray_iconName[index] = nameToPlace;
+    temporalArray_iconAreActive[this.onSection()] = false;
+    temporalArray_iconAreActive[index] = true;
+
+    this.onSection.set(index);
+    this.iconName.set(temporalArray_iconName);
+    this.iconAreActive.set(temporalArray_iconAreActive);
+    
   }
 
   homeClickHandler(): void {

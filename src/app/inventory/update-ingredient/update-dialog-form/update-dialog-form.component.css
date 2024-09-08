@@ -1,0 +1,60 @@
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+::ng-deep ::-webkit-scrollbar {
+    display: none;
+}
+
+::ng-deep ::-webkit-scrollbar-track {
+    display: none;
+}
+
+::ng-deep ::-webkit-scrollbar-thumb {
+    display: none;
+}
+
+.about_to {
+    width: 500px;
+    height: 225px;
+    background-color: white;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.show_form {
+    width: 500px;
+    height: 390px;
+    background-color: white;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.confirmation_div {
+    width: fit-content;
+    height: fit-content;
+    padding: 20px;
+    background-color: white;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.close {
+    width: fit-content;
+    height: fit-content;
+    padding: 20px;
+    background-color: white;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    align-content: center;
+}
+
+.close h2 {
+    margin: 0px;
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+    background-color: rgba(0, 0, 0, 0);
+}

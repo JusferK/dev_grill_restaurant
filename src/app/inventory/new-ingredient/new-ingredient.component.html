@@ -1,0 +1,61 @@
+<div class="general_container">
+    <form [formGroup]="newIngredientForm" class="info-container">
+        <div class="mb-3">
+            <label for="admin-id" class="form-label">Ingredient name</label>
+            <input
+                type="text"
+                id="admin-id"
+                class="form-control form_input p-2"
+                formControlName="name"
+                [ngClass]="{'is-invalid': hasError('name', 'required') || hasError('name', 'pattern')}"
+                (input)="valuesCheck()"
+            >
+            @if(hasError('name', 'required')) {
+                <p class="text-danger text-advise">Name cannot be empty</p>
+            } @else if(hasError('name', 'pattern')) {
+                <p class="text-danger text-advise">Only characters allowed</p>
+            }
+        </div>
+        <div class="mb-3">
+            <label for="admin-user" class="form-label">Stock</label>
+            <input
+                type="number"
+                id="admin-user"
+                class="form-control form_input p-2"
+                formControlName="stock"
+                [ngClass]="{'is-invalid': hasError('stock', 'required') || hasError('stock', 'min')}"
+                (input)="onlyNumbers()"
+                >
+                @if(hasError('stock', 'required')) {
+                    <p class="text-danger text-advise">Stock cannot be empty</p>
+                } @else if (hasError('stock', 'min')) {
+                    <p class="text-danger text-advise">Stock cannot be 0</p>
+                }
+        </div>
+        <div class="btn_section">
+            <button 
+                type="button"
+                class="btn btn-primary"
+                (click)="onSubmit()"
+                [disabled]="!hasError('name', 'required') && !hasError('name', 'pattern') && !hasError('stock', 'min') && !hasError('stock', 'required') && (valuesAreEmpty()[0] && valuesAreEmpty()[1]) ? false : true"
+                >
+                Add ingredient
+            </button>
+        </div>
+    </form>
+    <ng-container *ngIf="notificationSignalSend()">
+        @if(errorReturned()) {
+            <div class="alert alert-danger align-items-center notification" role="alert">
+                <p>
+                    {{ typeOfError() }}
+                </p>
+            </div>
+        } @else {
+            <div class="alert alert-success notification" role="alert">
+                <p>
+                    New Ingredient has been added
+                </p>
+            </div>
+        }
+    </ng-container>
+</div>

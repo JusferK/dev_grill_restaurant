@@ -1,0 +1,12 @@
+<mat-dialog-content class="mat-typography">
+    <h2 mat-dialog-title>Confirmation of creation</h2>
+    <p>
+        Just to confirm, you are about to add this ingredient to the database: <strong>{{ dialogData.ingredient_name }}</strong>
+        <br>
+        with this amount of stock: <strong>{{ dialogData.stock }}</strong>
+    </p>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="confirmHandler()">Confirm</button>
+    <button mat-button (click)="cancelHandler()">Cancel</button>
+</mat-dialog-actions>

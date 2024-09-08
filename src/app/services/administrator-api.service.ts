@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class AdministratorApiService {
 
   baseURL: string = 'http://192.168.10.18:8080/administrator';
-  //baseURL: string = 'http://localhost:8080/administrator';
+  /* baseURL: string = 'http://localhost:8080/administrator'; */
 
   constructor(private _myApiService: HttpClient) { }
 

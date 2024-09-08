@@ -1,0 +1,87 @@
+<ng-container *ngIf="isAboutShow()">
+    <div class="about_to">
+        <mat-dialog-content>    
+            <h2 mat-dialog-title>Update ingredient</h2>
+            <p>You are about edit this ingredient: <strong>{{ dialog_data_received.ingredient_received.name }}</strong></p>
+            <p>That has this stock: <strong>{{ dialog_data_received.ingredient_received.stock }}</strong></p>
+        </mat-dialog-content>
+        <mat-dialog-actions>
+            <button mat-button (click)="confirmHandler()">Confirm</button>
+            <button mat-button (click)="cancelHandler()">Cancel</button>
+        </mat-dialog-actions>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="showForm()">
+    <div class="show_form">
+        <mat-dialog-content style="padding: 15px !important;">
+            <h2 mat-dialog-title>Update ingredient</h2>
+        </mat-dialog-content>
+        <form [formGroup]="updateIngredientForm" MatForm>
+            <mat-form-field style="margin: 25px; margin-right: 10px; margin-bottom: 0px;">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name">
+                <mat-error
+                    *ngIf="updateIngredientForm.get('name')?.invalid"
+                    >
+                    Name cannot be empty or cannot contain numbers
+                </mat-error>
+            </mat-form-field>
+            <button 
+                class="btn btn-outline-primary"
+                style="height: 50px; justify-self: center; margin-bottom: 12px; margin-left: 8px;"
+                (click)="toggleEditName()"
+                >
+                Edit Name
+            </button>
+            <mat-form-field style="margin: 25px;">
+                <mat-label>Stock</mat-label>
+                <input type="number" matInput formControlName="stock" (input)="numbersOnly()">
+                <mat-error 
+                    *ngIf="updateIngredientForm.get('stock')?.invalid"
+                    >
+                    Stock cannot be empty or be 0
+                </mat-error>
+            </mat-form-field>
+            <mat-dialog-actions>
+                <button mat-button
+                    [disabled]="updateIngredientForm.get('name')?.invalid || updateIngredientForm.get('stock')?.invalid"
+                    (click)="updateConfirmation()"
+                    >
+                    Update
+                </button>
+                <button mat-button (click)="cancelHandler()">Cancel</button>
+            </mat-dialog-actions>
+        </form>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="showConfirmation()">
+    <div class="confirmation_div">
+        <mat-dialog-content>
+            <h2>Confirm changes</h2>
+            <p>Changes were in: </p>
+            @if(dialog_data_received.ingredient_received.name !== updateIngredientForm.get('name')?.value) {
+                <p>Ingredient name: <strong style="color: red;">{{ dialog_data_received.ingredient_received.name }}</strong> -> <strong style="color: blue;">{{ updateIngredientForm.get('name')?.value }}</strong></p>
+            }
+            <p>stock: <strong style="color: red;">{{dialog_data_received.ingredient_received.stock}}</strong> -> <strong style="color: blue;">{{ updateIngredientForm.get('stock')?.value }}</strong> </p>
+        </mat-dialog-content>
+        <mat-dialog-actions>
+            <button mat-button (click)="submitUpdate()">Send</button>
+            <button mat-button (click)="cancelHandler()">Cancel</button>
+        </mat-dialog-actions>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="isLoading()">
+    <mat-spinner></mat-spinner>
+</ng-container>
+<ng-container *ngIf="ifRecieved()">
+    <div class="close">
+        @if(returnError()) {
+            <h3 style="margin: 0px;">{{typeOfError()}}</h3>
+        } @else {
+            <h2>Ingredient updated!</h2>
+        }
+    </div>
+</ng-container>
