@@ -1,0 +1,12 @@
+::ng-deep .mat-mdc-dialog-surface {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.show_form {
+    width: fit-content;
+    height: fit-content;
+    padding: 20px;
+    background-color: white;
+    overflow-y: auto;
+    overflow-x: auto;
+}

@@ -1,11 +1,10 @@
 export interface IMenuIngredientList {
-    idMenuIngredientList: number;
+    idMenuIngredientList?: number;
     quantity: number;
     ingredientName: string;
-    idMenu: number;
-    idIngredient: number;
+    idMenu?: number;
+    idIngredient?: number;
 }
-
 
 export interface IIngredient {
     idIngredient?: number;

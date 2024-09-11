@@ -1,0 +1,165 @@
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+textarea {
+    resize: none;
+}
+
+.general-container {
+    height: 85vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.left-side {
+    margin: 20px;
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+}
+
+.right-side {
+    margin: 20px;
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.right-side h3 {
+    margin: 0px;
+}
+
+.above, .below {
+    height: 45%;
+    margin: 10px;
+}
+
+.onSubmitDiv {
+    height: 10%;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .above, .below, .onSubmitDiv{
+    border: 1px solid black;
+    padding: 20px;
+    box-shadow: 1px 1px 1px 1px black;
+} */
+
+.above {
+    display: flex;
+    flex-direction: row;
+}
+
+.inputs-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputs-container, .textarea-input {
+    width: 50%;
+    height: 100%;
+}
+
+#name-input-id-div, #price-input-id-div {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#name-input-id-div mat-form-field, #price-input-id-div mat-form-field {
+    height: 55%;
+    width: 60%;
+}
+
+.description-input-div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.description-input-div mat-form-field {
+    width: 70%;
+    height: 85%;
+}
+
+::ng-deep .mat-mdc-form-field-flex, ::ng-deep .mat-mdc-form-field-infix {
+    height: 100%;
+}
+
+mat-form-field textarea {
+    width: 100%;
+    height: 100%;
+}
+
+.below {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.below button {
+    height: 15%;
+}
+
+.preview_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 85%;
+    width: 90%;
+    border: 1px dotted #1F3AFF;
+    border-radius: 50px;
+}
+
+.preview_image {
+    height: 40%;
+    width: 40%;
+}
+
+.conditional_preview_image {
+    height: 70%;
+    width: 70%;
+    object-fit: cover;
+    max-width: 100%;
+    display: block;
+}
+
+.preview_container:hover {
+    cursor: pointer;
+    transition: ease-in-out 10ms;
+    border: 2px solid #1F3AFF;
+}
+
+.preview_container:active {
+    border: 1px solid black;
+}
+
+.ingredientListTable, .ingredientMenuListTable {
+    height: 40%;
+    overflow-y: auto;
+    padding: 10px;
+}

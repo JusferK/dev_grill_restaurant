@@ -14,7 +14,7 @@ export class StockComponent {
   ingredientListInput = input.required<IIngredient[]>();
   displayedColumns: string[] = ['id', 'name', 'stock'];
 
-  constructor() {
-    
-  }
+  constructor() { }
+
+  
 }

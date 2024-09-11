@@ -8,9 +8,9 @@ import { IIngredient } from '../models/ingredient.model';
 })
 export class InventoryApiService {
 
-  private _httpClient = inject(HttpClient);
   baseURL: string = 'http://192.168.10.18:8080/ingredients';
-  //baseURL: string = 'http://localhost:8080/ingredients';
+  /* baseURL: string = 'http://localhost:8080/ingredients'; */
+  private _httpClient = inject(HttpClient);
   
   constructor() { }
 

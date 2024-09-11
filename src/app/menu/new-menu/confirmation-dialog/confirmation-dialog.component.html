@@ -1,0 +1,38 @@
+<ng-container *ngIf="!showLoading() && menuInfoReceived()">
+    <div class="show_form">
+        <mat-dialog-content>
+            <h3 mat-dialog-title>Create new menu: <strong>{{ this.menuInfoReceived()?.name | uppercase }}</strong> </h3>
+            <p>We want you to be sure about the information, here's a summary: </p>
+            <p>Price: <strong>{{ this.menuInfoReceived()?.price | currency:'Q' }}</strong> </p>
+            <p>Description: <strong>{{this.menuInfoReceived()?.description}}</strong></p>
+            <p>photo received: </p>
+            <div style="width: 300px; height: 300px;">
+                <img [src]="this.menuInfoReceived()?.photo" style="object-fit: scale-down; height: 100%; width: 100%;">
+            </div>
+            <br>
+            <p>Here's the list of menu's ingredient list: </p>
+            <ul style="padding: 10px;">
+                @for (item of this.menuInfoReceived()?.menuIngredientListList; track $index) {
+                    <li style="padding: 10px;">
+    
+                        @if(item.idIngredient) {
+                            <p>ingredient's id: <strong>{{item.idIngredient}}</strong></p>
+                        }
+                        <p>ingredient's name: <strong>{{item.ingredientName}}</strong></p>
+                        <p>ingredient's quantity: <strong>{{item.quantity}}</strong></p>
+                    </li>
+                }
+            </ul>
+            <p>Please, make sure this information is correct.</p>
+        </mat-dialog-content>
+        <mat-dialog-actions>
+            <button mat-button [mat-dialog-close]="true">Submit</button>
+            <button mat-button [mat-dialog-close]="false">Cancel</button>
+        </mat-dialog-actions>
+    </div>
+</ng-container>
+<ng-container *ngIf="showLoading()">
+    <div>
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-container>

@@ -1,0 +1,17 @@
+<mat-dialog-content>
+    <h2>Didn't find an ingredient?</h2>
+    <p>We got you! you can create a new ingredient from here</p>
+    <p>If you delete this ingredient, it will not be added to the normal ingredient's list</p>
+    <p>By default this ingredient will have a stock of 0</p>
+    <form [formGroup]="nameForm">
+        <mat-form-field>
+            <mat-label>Ingredient name</mat-label>
+            <input matInput (input)="onlyChars('name')" formControlName="name"/>
+            <mat-error *ngIf="nameForm.get('name')?.invalid">Name required</mat-error>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onSubmit()" [disabled]="nameForm.get('name')?.invalid">Create</button>
+    <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

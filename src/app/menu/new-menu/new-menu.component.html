@@ -1,0 +1,176 @@
+<form [formGroup]="newMenuForm">
+    <p-toast />
+    <div class="general-container">
+        <div class="left-side">
+            <div class="above">
+                <div class="inputs-container">
+                    <div id="name-input-id-div">
+                        <mat-form-field>
+                            <mat-label>Name</mat-label>
+                            <input 
+                                matInput 
+                                id="name_input" 
+                                formControlName="name"
+                                (input)="onlyChars('name')"
+                            >
+                            <mat-error *ngIf="newMenuForm.get('name')?.invalid">Name is required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div id="price-input-id-div">
+                        <mat-form-field>
+                            <mat-label>Price</mat-label>
+                            <input 
+                                matInput 
+                                type="number" 
+                                formControlName="price" 
+                                (wheel)="preventWheel('price')"
+                                (input)="onlyNumbers('price')"
+                            >
+                            <mat-error *ngIf="newMenuForm.get('price')?.hasError('required')">Price is required</mat-error>
+                            <mat-error *ngIf="newMenuForm.get('price')?.hasError('min')">The minimum price can be {{ 60 | currency:'Q' }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="textarea-input">
+                    <div class="description-input-div">
+                        <mat-form-field>
+                            <mat-label>Description</mat-label>
+                            <textarea 
+                                matInput 
+                                formControlName="description"
+                                (input)="onlyChars('description')"
+                                >
+                            </textarea>
+                            <mat-error *ngIf="newMenuForm.get('description')?.invalid">Description is required</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="below">
+                <button type="button" mat-raised-button (click)="fileInput.click()"><img src="upload_icon.svg"> Choose a photo</button>
+                <div class="preview_container" (click)="fileInput.click()">
+                    <img [src]="imagePreview()" [ngClass]="{'preview_image': imagePreview() === 'preview_icon.svg', 'conditional_preview_image': imagePreview() !== 'preview_icon.svg'}" alt="preview">
+                </div>
+                <input type="file" hidden (change)="onFileSelected($event)" #fileInput id="file" accept="image/*" >
+            </div>
+            <div class="onSubmitDiv">
+                <button
+                    type="button"
+                    mat-raised-button
+                    [disabled]="newMenuForm.get('name')?.invalid ||
+                    newMenuForm.get('price')?.invalid ||
+                    newMenuForm.get('description')?.invalid ||
+                    newMenuForm.get('quantities')?.invalid ||
+                    !hasIngredients() ||
+                    !imageUploaded()"
+                    (click)="onSubmit()"
+                    >
+                    Send Menu
+                </button>
+            </div>
+        </div>
+        <mat-divider [vertical]="true"></mat-divider>
+        <div class="right-side">
+            <h3>Ingredient's List</h3>
+            <div class="ingredientListTable">
+                <table mat-table [dataSource]="ingredientList()" class="mat-elevation-z8 demo-table">
+                    <ng-container matColumnDef="ID">
+                      <th mat-header-cell *matHeaderCellDef>ID</th>
+                      <td mat-cell *matCellDef="let element"> {{element.idIngredient}} </td>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="Name">
+                      <th mat-header-cell *matHeaderCellDef> Name </th>
+                      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef=" ">
+                      <th mat-header-cell *matHeaderCellDef></th>
+                      <td mat-cell *matCellDef="let element; let i = index">
+                        <button
+                        type="button"
+                        class="btn btn-outline-primary"
+                        style="margin: 10px;"
+                        (mouseover)="onMouseOverHandler($event, '')"
+                        (mouseout)="onMouseOutHandler($event, '')"
+                        (click)="onIngredientAdded(element)"
+                        >
+                        <img src="add_icon.svg">
+                        </button>
+                      </td>
+                    </ng-container>
+                  
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>   
+            </div>
+            <mat-divider></mat-divider>
+            <div class="d-flex">
+                <h3 class="p-2 flex-grow-1">Menu's Ingredient List</h3>
+                <button
+                    type="button"
+                    class="btn btn-outline-primary p-2"
+                    style="margin: 10px;"
+                    (mouseover)="onMouseOverHandler($event, '')"
+                    (mouseout)="onMouseOutHandler($event, '')"
+                    (click)="addNewIngredient()"
+                    >
+                    <img src="add_icon.svg">
+                </button>
+            </div>
+            <div class="ingredientMenuListTable">
+                
+                <table mat-table [dataSource]="ingredientListMenu()" class="mat-elevation-z8 demo-table">
+    
+                    <ng-container matColumnDef="ID">
+                      <th mat-header-cell *matHeaderCellDef> ID </th>
+                      <td mat-cell *matCellDef="let element"> {{ element.idIngredient }} </td>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="Name">
+                      <th mat-header-cell *matHeaderCellDef> Name </th>
+                      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
+                    
+                    <div formArrayName="quantities">
+                        <ng-container matColumnDef="Quantity">
+                            <th mat-header-cell *matHeaderCellDef >Quantity</th>
+                            <td mat-cell *matCellDef="let quantity; let i = index">
+                                <mat-form-field style="margin-top: 15px;">
+                                    <mat-label>Ingredient's quantity</mat-label>
+                                    <input 
+                                        matInput
+                                        type="number"
+                                        (wheel)="preventWheel('quantity', i)"
+                                        [formControlName]="i"
+                                        (input)="onlyNumbers('quantity', i)"
+                                        >
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+                    </div>
+
+                  
+                    <ng-container matColumnDef=" ">
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let element; let i = index">
+                          <button
+                          type="button"
+                          class="btn btn-outline-primary"
+                          style="margin: 10px;"
+                          (mouseover)="onMouseOverHandler($event, 'remove')"
+                          (mouseout)="onMouseOutHandler($event, 'remove')"
+                          (click)="onIngredientRemove(element, i)"
+                          >
+                            <img src="close_icon.svg">
+                          </button>
+                        </td>
+                      </ng-container>
+    
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsAdded"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsAdded;"></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>

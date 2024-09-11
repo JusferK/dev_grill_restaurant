@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit{
   private _router = inject(Router);
 
   ngOnInit(): void {
-    const urlDirectories = ['inventory', 'menu', 'order'];
+    const urlDirectories = ['inventory', 'menu', 'news', 'order'];
 
     urlDirectories.forEach((directory: string, index: number) => {
       if(this._router.url.includes(directory)) {
@@ -78,9 +78,15 @@ export class HomeComponent implements OnInit{
           temporalArray[this.indexIcon()] = 'Menu';
         }
         break;
-      case 'food_order':
+      case 'news_icon':
         if(!this.iconAreActive()[3]) {
           this.indexIcon.set(3);
+          temporalArray[this.indexIcon()] = 'News';
+        }
+        break;
+      case 'food_order':
+        if(!this.iconAreActive()[4]) {
+          this.indexIcon.set(4);
           temporalArray[this.indexIcon()] = 'Orders';
         }
         break;

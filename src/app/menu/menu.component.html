@@ -1,1 +1,24 @@
-<p>menu works!</p>
+<ng-container *ngIf="isLoading()">
+    <div class="spinner-container">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-container>
+@defer {
+    <ng-container *ngIf="!isLoading()">
+        <mat-tab-group>
+            <mat-tab label="New menu">
+                <div>
+                    <new-menu />
+                </div>
+            </mat-tab>
+            <mat-tab label="All menus">
+                <div>   
+                    <all-menus [menuListInput]="menuList()" />
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </ng-container>
+    <ng-container *ngIf="returnError()">
+        <h1 style="text-align: center;">Please try again later</h1>
+    </ng-container>
+}
