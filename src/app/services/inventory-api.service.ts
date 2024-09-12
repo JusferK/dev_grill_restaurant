@@ -18,6 +18,10 @@ export class InventoryApiService {
     return this._httpClient.get<IIngredient[]>(`${this.baseURL}/all-ingredients`);
   }
 
+  getIngredient(id: number): Observable<IIngredient> {
+    return this._httpClient.get<IIngredient>(`${this.baseURL}/get-ingredient/${id}`);
+  }
+
   addIngredient(ingredient: IIngredient): Observable<IIngredient> {
     return this._httpClient.post<IIngredient>(`${this.baseURL}/new-ingredient`, ingredient);
   }

@@ -19,7 +19,7 @@ import { IMenu } from '../models/menu.model';
 
 export class MenuComponent implements OnInit, OnDestroy {
 
-  isLoading = signal<boolean>(false);
+  isLoading = signal<boolean>(true);
   returnError = signal<boolean>(false);
   menuList = signal<IMenu[]>([]);
   menuSuscription?: Subscription;
@@ -30,15 +30,28 @@ export class MenuComponent implements OnInit, OnDestroy {
       next: (data: IMenu[]) => {
         if(data) {
           this.menuList.set(data);
+
+          setTimeout(() => {
+            this.isLoading.set(false);
+          }, 1000);
         }
       },
-      error: (error: any) => {
-        console.log(error);
+      error: () => {
+        this.isLoading.set(false);
+        this.returnError.set(true);
       }
     });
   }
 
   ngOnDestroy(): void {
     this.menuSuscription?.unsubscribe();
+  }
+
+  receiveNewMenu(menu: IMenu) {
+    console.log('data received from menu!')
+    console.table(menu)
+    this.menuList.update((prev) => {
+      return [...prev, menu];
+    });
   }
 }

@@ -10,7 +10,7 @@
                 <img [src]="this.menuInfoReceived()?.photo" style="object-fit: scale-down; height: 100%; width: 100%;">
             </div>
             <br>
-            <p>Here's the list of menu's ingredient list: </p>
+            <p>Here's the menu's ingredient list: </p>
             <ul style="padding: 10px;">
                 @for (item of this.menuInfoReceived()?.menuIngredientListList; track $index) {
                     <li style="padding: 10px;">

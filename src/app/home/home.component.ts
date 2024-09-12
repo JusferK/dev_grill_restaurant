@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit{
 
   sideNavOpen = signal<Boolean>(true);
   mouseOverSignal = signal<Boolean>(false);
-  iconName = signal<String[]>(['Home', '', '', '']);
+  iconName = signal<String[]>(['Home', '', '', '', '']);
   iconAreActive = signal<boolean[]>([true, false, false, false]);
   indexIcon = signal<number>(-1);
   onSection = signal<number>(0);
@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit{
   private _router = inject(Router);
 
   ngOnInit(): void {
-    const urlDirectories = ['inventory', 'menu', 'news', 'order'];
+    const urlDirectories = ['inventory', 'menu', 'news', 'users', 'order'];
 
     urlDirectories.forEach((directory: string, index: number) => {
       if(this._router.url.includes(directory)) {
@@ -84,9 +84,15 @@ export class HomeComponent implements OnInit{
           temporalArray[this.indexIcon()] = 'News';
         }
         break;
-      case 'food_order':
+      case 'user_search_icon':
         if(!this.iconAreActive()[4]) {
           this.indexIcon.set(4);
+          temporalArray[this.indexIcon()] = 'Users';
+        }
+        break;
+      case 'food_order':
+        if(!this.iconAreActive()[5]) {
+          this.indexIcon.set(5);
           temporalArray[this.indexIcon()] = 'Orders';
         }
         break;

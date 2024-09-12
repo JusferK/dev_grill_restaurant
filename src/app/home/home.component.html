@@ -46,15 +46,26 @@
                 <p>{{ iconName()[3] }}</p>
             </li>
             <li 
+            (mouseover)="mouseOverHandle('user_search_icon')"
+            (mouseout)="mouseOutHandler(4)"
+            [routerLink]="['/users']"
+            routerLinkActive="router-link-active"
+            [ngClass]="{'activeLiElement': iconAreActive()[4]}"
+            (click)="clickHandler(4, 'Users')"
+            >
+                <img src="user_search_icon.svg" alt="news icon">
+                <p>{{ iconName()[4] }}</p>
+            </li>
+            <li 
             (mouseover)="mouseOverHandle('food_order')" 
-            (mouseout)="mouseOutHandler(4)" 
+            (mouseout)="mouseOutHandler(5)" 
             [routerLink]="['/order']" 
             routerLinkActive="router-link-active" 
-            [ngClass]="{'activeLiElement': iconAreActive()[4]}"
-            (click)="clickHandler(4, 'Orders')"
+            [ngClass]="{'activeLiElement': iconAreActive()[5]}"
+            (click)="clickHandler(5, 'Orders')"
             >
                 <mat-icon matBadge="0" id="order-icon"><img src="food_order.svg" alt="order icon"></mat-icon>
-                <p id="special-icon">{{ iconName()[4] }}</p>
+                <p id="special-icon">{{ iconName()[5] }}</p>
             </li>
         </ul>
     </mat-drawer>

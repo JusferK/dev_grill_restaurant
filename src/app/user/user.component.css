@@ -1,0 +1,15 @@
+.content-container {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    margin: 20px;
+    height: 82vh;
+    width: 97%;
+}
+
+.sub-content-container {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 20px;
+}

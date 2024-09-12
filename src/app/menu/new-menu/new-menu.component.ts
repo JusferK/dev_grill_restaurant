@@ -288,7 +288,8 @@ export class NewMenuComponent implements OnInit, OnDestroy {
             this.sendMenu(data);
             this.newMenuForm.reset();
             this.imagePreview.set('preview_icon.svg');
-            this.ingredientListMenu.update(prev => []);
+            this.ingredientListMenu.set([]);
+            this.quantitiesArray.clear();
 
             if(this.hasAddedIngredient()) {
               this.hasAddedIngredient.set(false);
@@ -307,8 +308,9 @@ export class NewMenuComponent implements OnInit, OnDestroy {
               this._dialog.closeAll();
             }, 3000);
 
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Menu has been added' });
-
+            setTimeout(() => {
+              this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Menu has been added' });
+            }, 3000);
           },
           error: (error: any) => {
 

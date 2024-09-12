@@ -1,1 +1,14 @@
-<p>all-menus works!</p>
+<div class="general-container">
+    <ng-container>
+        <div class="d-flex justify-content-evenly card-behavior" style="margin: 20px;" *ngFor="let pair of inPair">
+            <p-card header="{{item.name}}" subheader="{{item.price | currency:'Q'}}" [style]="{ width: '300px', height: '700px'}" *ngFor="let item of pair" class="card-hover_style" (click)="clickHandler(item)" >
+                <ng-template pTemplate="header" style="width: 300px; height: 500px;">
+                    <img alt="Card" src="{{item.photo}}" style="object-fit: cover; width: 300px; height: 225px;"/>
+                </ng-template>
+                <p style="margin: 0px;">{{item.description}}</p>
+                <ng-template pTemplate="footer">
+                </ng-template>
+            </p-card>
+        </div>
+    </ng-container>
+</div>

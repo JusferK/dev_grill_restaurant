@@ -61,8 +61,8 @@
                     newMenuForm.get('price')?.invalid ||
                     newMenuForm.get('description')?.invalid ||
                     newMenuForm.get('quantities')?.invalid ||
-                    !hasIngredients() ||
-                    !imageUploaded()"
+                    !this.hasIngredients() ||
+                    !this.imageUploaded()"
                     (click)="onSubmit()"
                     >
                     Send Menu
