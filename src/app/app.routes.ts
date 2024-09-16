@@ -28,5 +28,5 @@ export const routes: Routes = [
             {path: 'news', component: NewsComponent, canActivate: [authGuard]}
         ]
     },
-    {path: '**', component: NotFoundComponent, canActivate: [authGuard]}
+    {path: '**', component: NotFoundComponent}
 ];

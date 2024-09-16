@@ -72,13 +72,13 @@ ng-container button {
 }
 
 .elementsLi {
-  gap: 20px;
+  gap: 10px;
 }
 
 .elementsLi li {
   list-style-type: none;
   transition: ease-out 900ms;
-  height: 230px;
+  height: 145px;
   width: 100%;
   display: flex;
   flex-direction: column;

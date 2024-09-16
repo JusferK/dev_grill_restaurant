@@ -1,1 +1,280 @@
-<p>order works!</p>
+<ng-container *ngIf="isLoading()">
+    <div class="centered">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-container>
+<div>
+    <ng-container *ngIf="!isLoading() && !returnedError()">
+        <div class="general-content">
+            <p-toast />
+            <div class="sub-content-container">
+                <form [formGroup]="searchOrderForm" style="width: 100%;">
+                    <p-inputGroup>
+                        <input type="text" pInputText placeholder="Find order by id, nit or name (We recommend search by order id for accurate results)" formControlName="parameter"/>
+                        @if(isSearching()) {
+                            <button type="button" pButton (click)="onReset()"><i class="pi pi-times" style="font-size: 1rem"></i></button>
+                        } @else {
+                            <button type="button" pButton (click)="onSearchOrder()" [disabled]="searchOrderForm.get('parameter')?.invalid" >Search</button>
+                        }
+                    </p-inputGroup>
+                </form>
+                <!-------------------------------------------------->
+                <ng-container *ngIf="!isSearching()">
+                    <div class="card" style="width: 100%; margin-top: 10px;">
+                        <p-toast />
+                        <p-table [value]="orderRequests()" dataKey="idOrderRequest" [tableStyle]="{ 'min-width': '60rem' }"
+                            [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th style="width: 5rem"></th>
+                                    <th pSortableColumn="idOrderRequest"> Order ID <p-sortIcon field="name"/> </th>
+                                    <th pSortableColumn="orderDateTime">Order's date <p-sortIcon field="orderDateTime" /></th>
+                                    <th pSortableColumn="totalDue"> Total due <p-sortIcon field="totalDue" /></th>
+                                    <th pSortableColumn="status">Status <p-sortIcon field="status" /></th>
+                                    <th pSortableColumn="lastStatusUpdate">Update's last date<p-sortIcon field="rating" /></th>
+                                    <th pSortableColumn="userEmail">Customer email<p-sortIcon field="inventoryStatus" /> </th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-order let-i="rowIndex" let-expanded="expanded">
+                                <tr>
+                                    <td>
+                                        <p-button 
+                                            type="button" 
+                                            pRipple 
+                                            [pRowToggler]="order" 
+                                            [text]="true" 
+                                            [rounded]="true" 
+                                            [plain]="true"
+                                            [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+                                        />
+                                    </td>
+                                    <td>{{ order.idOrderRequest }}</td>
+                                    <td>{{ order.orderDateTime | date:'medium' }}</td>
+                                    <td>{{ order.totalDue | currency : 'Q' }}</td>
+                                    <td>
+                                        @if(!updateRowController()[i]) {
+                                            <p-tag [value]="order.status" [severity]="getSeverity(order.status)" />
+                                        } @else {
+                                            <form [formGroup]="updateOrderForm">
+                                                <p-dropdown
+                                                    [options]="selectListOption(order.status)"
+                                                    [placeholder]="order.status"
+                                                    formControlName="status"
+                                                    appendTo="body"
+                                                    [ngClass]="{'ng-dirty ng-invalid': updateOrderForm.get('status')?.hasError('required') && updateOrderForm.get('status')?.touched}"
+                                                />
+                                            </form>
+                                        }
+                                    </td>
+                                    <td>{{ order.lastStatusUpdate | date:'medium' }}</td>
+                                    <td>{{ order.userEmail }}</td>
+                                    <td>
+                                        @if(!updateRowController()[i]) {
+                                            <button type="button" pButton [disabled]="order.status === statusDisabledUpdate[0] || order.status === statusDisabledUpdate[1] || isBusy()" (click)="onUpdate(i)">Update</button>
+                                        } @else {
+                                            <button type="button" pButton (click)="onSubmitUpdate(order, i)" [disabled]="updateOrderForm.get('status')?.invalid" label="Submit"></button>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if(updateRowController()[i]) {
+                                            <button type="button" pButton (click)="onCancelUpdate(i)" severity="danger" label="Cancel"></button>
+                                        }
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="rowexpansion">
+                                <ng-container *ngIf="menuIsLoading()">
+                                    <tr>
+                                        <td colspan="8" style="text-align: center; padding: 20px;">
+                                            <div style="display: flex; align-items: center; height: 50px; justify-content: center;">
+                                                <mat-spinner [diameter]="60"></mat-spinner>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                                <ng-container *ngIf="!menuIsLoading()">
+                                    <tr>
+                                        <td colspan="9">
+                                            <div class="p-3">
+                                                <p-table [value]="menuFetched()" dataKey="id">
+                                                    <ng-template pTemplate="header">
+                                                        <tr>
+                                                            <th pSortableColumn="menu_id">Menu ID <p-sortIcon field="menu_id" /></th>
+                                                            <th pSortableColumn="menu_name">Name<p-sortIcon field="menu_name" /></th>
+                                                            <th pSortableColumn="menu_price">Price<p-sortIcon field="menu_price" /></th>
+                                                            <th>Photo</th>
+                                                            <th pSortableColumn="quantity_per_menu">Quantity<p-sortIcon field="quantity_per_menu" /></th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </ng-template>
+                                                    <ng-template pTemplate="body" let-data>
+                                                        <tr>
+                                                            <td>{{ data.menu_id }}</td>
+                                                            <td>{{ data.menu_name }}</td>
+                                                            <td>{{ data.menu_price | currency : 'Q' }}</td>
+                                                            <td><img [src]="data.menu_photo" alt="menu photo" width="50px" height="50px" style="object-fit: scale-down;"></td>
+                                                            <td>{{ data.quantity_per_menu }}</td>
+                                                            <td> </td>
+                                                        </tr>
+                                                    </ng-template>
+                                                    <ng-template pTemplate="emptymessage">
+                                                        <tr>
+                                                            <td colspan="7">There are no menus for this order yet.</td>
+                                                        </tr>
+                                                    </ng-template>
+                                                </p-table>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </ng-container>
+                <!----------------------------------------------------  Search order part   ---------------------------------------------------->
+                <ng-container *ngIf="isSearching()">
+                    <ng-container *ngIf="isFetching()">
+                        <div class="centered">
+                            <mat-spinner></mat-spinner>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="!isFetching()">
+                        <ng-container *ngIf="notFound()">
+                            <div class="centered">
+                                <h1>NOT FOUND</h1>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="!notFound()">
+                            <div class="card" style="width: 100%; margin-top: 10px;">
+                                <p-toast />
+                                <p-table [value]="orderSearched()" dataKey="idOrderRequest" [tableStyle]="{ 'min-width': '60rem' }"
+                                    [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th style="width: 5rem"></th>
+                                            <th pSortableColumn="idOrderRequest"> Order ID <p-sortIcon field="name"/></th>
+                                            <th pSortableColumn="orderDateTime">Order's date <p-sortIcon field="orderDateTime" /></th>
+                                            <th pSortableColumn="totalDue"> Total due <p-sortIcon field="totalDue" /></th>
+                                            <th pSortableColumn="category">Status <p-sortIcon field="category" /></th>
+                                            <th pSortableColumn="lastStatusUpdate">Update's last date<p-sortIcon field="rating" /></th>
+                                            <th pSortableColumn="userEmail">Customer email<p-sortIcon field="inventoryStatus" /> </th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-order let-i="rowIndex" let-expanded="expanded">
+                                        <tr>
+                                            <td>
+                                                <p-button 
+                                                    type="button" 
+                                                    pRipple 
+                                                    [pRowToggler]="order" 
+                                                    [text]="true" 
+                                                    [rounded]="true" 
+                                                    [plain]="true"
+                                                    [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+                                                />
+                                            </td>
+                                            <td>{{ order.idOrderRequest }}</td>
+                                            <td>{{ order.orderDateTime | date:'medium' }}</td>
+                                            <td>{{ order.totalDue | currency : 'Q' }}</td>
+                                            <td>
+                                                @if(!updateRowController()[i]) {
+                                                    <p-tag [value]="order.status" [severity]="getSeverity(order.status)" />
+                                                } @else {
+                                                    <form [formGroup]="updateOrderForm">
+                                                        <p-dropdown
+                                                            [options]="selectListOption(order.status)"
+                                                            [placeholder]="order.status"
+                                                            formControlName="status"
+                                                            appendTo="body"
+                                                            [ngClass]="{'ng-dirty ng-invalid': updateOrderForm.get('status')?.hasError('required') && updateOrderForm.get('status')?.touched}"
+                                                        />
+                                                    </form>
+                                                }
+                                            </td>
+                                            <td>{{ order.lastStatusUpdate | date:'medium' }}</td>
+                                            <td>{{ order.userEmail }}</td>
+                                            <td>
+                                                @if(!updateRowController()[i]) {
+                                                    <button type="button" pButton [disabled]="order.status === statusDisabledUpdate[0] || order.status === statusDisabledUpdate[1] || isBusy()" (click)="onUpdate(i)">Update</button>
+                                                } @else {
+                                                    <button type="button" pButton (click)="onSubmitUpdate(order, i, 'search')" [disabled]="updateOrderForm.get('status')?.invalid" label="Submit"></button>
+                                                }
+                                            </td>
+                                            <td>
+                                                @if(updateRowController()[i]) {
+                                                    <button type="button" pButton (click)="onCancelUpdate(i)" severity="danger" label="Cancel"></button>
+                                                }
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="rowexpansion">
+                
+                                        <ng-container *ngIf="menuIsLoading()">
+                                            <tr>
+                                                <td colspan="8" style="text-align: center; padding: 20px;">
+                                                    <div style="display: flex; align-items: center; height: 50px; justify-content: center;">
+                                                        <mat-spinner [diameter]="60"></mat-spinner>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                        <ng-container *ngIf="!menuIsLoading()">
+                                            <tr>
+                                                <td colspan="9">
+                                                    <div class="p-3">
+                                                        <p-table [value]="menuFetched()" dataKey="id">
+                                                            <ng-template pTemplate="header">
+                                                                <tr>
+                                                                    <th pSortableColumn="menu_id">Menu ID <p-sortIcon field="menu_id" /></th>
+                                                                    <th pSortableColumn="menu_name">Name<p-sortIcon field="menu_name" /></th>
+                                                                    <th pSortableColumn="menu_price">Price<p-sortIcon field="menu_price" /></th>
+                                                                    <th>Photo</th>
+                                                                    <th pSortableColumn="quantity_per_menu">Quantity<p-sortIcon field="quantity_per_menu" /></th>
+                                                                    <th> </th>
+                                                                </tr>
+                                                            </ng-template>
+                                                            <ng-template pTemplate="body" let-data>
+                                                                <tr>
+                                                                    <td>{{ data.menu_id }}</td>
+                                                                    <td>{{ data.menu_name }}</td>
+                                                                    <td>{{ data.menu_price | currency : 'Q' }}</td>
+                                                                    <td><img [src]="data.menu_photo" alt="menu photo" width="50px" height="50px" style="object-fit: scale-down;"></td>
+                                                                    <td>{{ data.quantity_per_menu }}</td>
+                                                                    <td> </td>
+                                                                </tr>
+                                                            </ng-template>
+                                                            <ng-template pTemplate="emptymessage">
+                                                                <tr>
+                                                                    <td colspan="7">There are no menus for this order yet.</td>
+                                                                </tr>
+                                                            </ng-template>
+                                                        </p-table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                    </ng-template>
+                                </p-table>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+    
+    
+                
+    
+                 <!-------------------------------------------------->
+    
+            </div>
+        </div>
+    </ng-container>
+</div>
+<ng-container *ngIf="!isLoading() && returnedError()">
+    <div class="centered">
+        <h1>Please try again later</h1>
+    </div>
+</ng-container>

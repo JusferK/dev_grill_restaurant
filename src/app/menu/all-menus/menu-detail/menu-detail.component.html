@@ -7,18 +7,18 @@
 <ng-container *ngIf="!isLoading()">
     <mat-dialog-content>
         @if(this.menuDetailShow) {
-            <h3>Menu name: <strong>{{ this.menuDetailShow().name| uppercase }}</strong></h3>
-            <p>Menu id: <strong>{{ this.menuDetailShow().idMenu }}</strong></p>
-            <p>price: <strong>{{ this.menuDetailShow().price | currency: 'Q' }}</strong></p>
-            <p>description: <strong>{{ this.menuDetailShow().description }}</strong></p>
-            <p>Can be order: <strong [style]="{color: this.menuDetailShow().isAvailable ? 'blue' : 'red'}"  > {{ this.menuDetailShow().isAvailable ? 'Yes' : 'No' }} </strong></p>
+            <h3><strong>Menu name:</strong> {{ this.menuDetailShow().name| uppercase }}</h3>
+            <p><strong>Menu id:</strong> {{ this.menuDetailShow().idMenu }}</p>
+            <p><strong>Price:</strong> {{ this.menuDetailShow().price | currency: 'Q' }}</p>
+            <p><strong>Description:</strong> {{ this.menuDetailShow().description }}</p>
+            <p><strong>Can be order:</strong> <strong [style]="{color: this.menuDetailShow().isAvailable ? 'blue' : 'red'}"  > {{ this.menuDetailShow().isAvailable ? 'Yes' : 'No' }} </strong></p>
             <div class="container" >
                 <mat-accordion>
                     <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
                         <mat-expansion-panel-header>
                           <mat-panel-title> Ingredient's list </mat-panel-title>
                         </mat-expansion-panel-header>
-                        <table mat-table [dataSource]="ingredientInfoList()" class="mat-elevation-z8">
+                        <table mat-table [dataSource]="ingredientInfoList()" class="mat-elevation-z8" style="box-shadow: 0px 0px 0px;">
         
                             <ng-container matColumnDef="ID">
                               <th mat-header-cell *matHeaderCellDef> ID </th>
@@ -46,9 +46,9 @@
                       </mat-expansion-panel>
                 </mat-accordion>
             </div>
-            <div style="width: 300px; height: 300px; margin: 20px;">
+            <div style="width: 400px; height: 400px; margin: 50px; display: flex; flex-direction: column; gap: 25px; align-items: center; justify-content: center;">
                 <p>Menu's photo:</p>
-                <img [src]="this.menuDetailShow().photo" style="object-fit: scale-down; height: 100%; width: 100%;">
+                <img [src]="this.menuDetailShow().photo" style="object-fit: scale-down; height: 85%; width: 85%;">
             </div>
         }
     

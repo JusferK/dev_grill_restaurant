@@ -1,0 +1,34 @@
+/* Spinner & error page */
+
+.centered {
+    margin: 20px;
+    height: 82vh;
+    width: 97%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.general-content {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    margin: 20px;
+    height: 82vh;
+    width: 97%;
+}
+
+.sub-content-container {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+::ng-deep .p-dropdown-items {
+    padding: 0;
+    margin: 0;
+}

@@ -21,6 +21,7 @@ export class InventoryComponent implements OnInit, OnDestroy{
 
   isLoading = signal<boolean>(true);
   ingredientList = signal<IIngredient[]>([]);
+  returnedError = signal<boolean>(false);
   suscription?: Subscription;
   private _inventoryApiService = inject(InventoryApiService);
 
@@ -35,8 +36,9 @@ export class InventoryComponent implements OnInit, OnDestroy{
 
         }
       },
-      error: (error: any) => {
-        console.log(error);
+      error: () => {
+        this.isLoading.set(false);
+        this.returnedError.set(true);
       }
     });
   }

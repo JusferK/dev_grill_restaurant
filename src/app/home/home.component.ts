@@ -11,6 +11,9 @@ import { RouterOutlet } from '@angular/router';
 import { NgClass } from '@angular/common'; 
 import { HomeContentComponent } from './home-content/home-content.component';
 import { ProfileServiceService } from '../services/profile-service.service';
+import { OrderApiService } from '../services/order-api.service';
+import { IOrderRequest, Status } from '../models/order-request.model';
+import { OrderPendingServiceService } from '../services/order-pending-service.service';
 
 @Component({
   selector: 'home',
@@ -30,7 +33,9 @@ export class HomeComponent implements OnInit{
   isAtHome = signal<boolean>(true);
   private _profileService = inject(ProfileServiceService);
   private _router = inject(Router);
-
+  private _ordersApiService = inject(OrderApiService);
+  pendingOrders = inject(OrderPendingServiceService);
+  
   ngOnInit(): void {
     const urlDirectories = ['inventory', 'menu', 'news', 'users', 'order'];
 
@@ -51,6 +56,16 @@ export class HomeComponent implements OnInit{
         this.iconAreActive.set(temporalArray_iconAreActive);
       }
     });
+
+    this._ordersApiService.getAllOrderRequests().subscribe({
+      next: (data: IOrderRequest[]) => {
+        data.forEach((item: IOrderRequest) => {
+          if(item.status !== Status.Completed && item.status !== Status.Cancelled) {
+            this.pendingOrders.ordersPending.update((prev) => prev + 1);
+          }
+        });
+      }
+    })
   }
 
   sideNavClicked(): void {

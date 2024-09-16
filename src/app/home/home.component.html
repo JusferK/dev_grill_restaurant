@@ -64,7 +64,7 @@
             [ngClass]="{'activeLiElement': iconAreActive()[5]}"
             (click)="clickHandler(5, 'Orders')"
             >
-                <mat-icon matBadge="0" id="order-icon"><img src="food_order.svg" alt="order icon"></mat-icon>
+                <mat-icon matBadge="{{ this.pendingOrders.ordersPending() }}" id="order-icon"><img src="food_order.svg" alt="order icon"></mat-icon>
                 <p id="special-icon">{{ iconName()[5] }}</p>
             </li>
         </ul>
@@ -83,6 +83,6 @@
                 </mat-menu>
             </ng-container>
         </div>
-        <router-outlet ></router-outlet>
+        <router-outlet></router-outlet>
     </mat-drawer-content>
 </mat-drawer-container>  
