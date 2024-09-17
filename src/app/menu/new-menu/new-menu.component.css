@@ -54,11 +54,6 @@ textarea {
     align-items: center;
 }
 
-/* .above, .below, .onSubmitDiv{
-    border: 1px solid black;
-    padding: 20px;
-    box-shadow: 1px 1px 1px 1px black;
-} */
 
 .above {
     display: flex;

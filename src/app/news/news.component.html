@@ -1,1 +1,10 @@
-<p>news works!</p>
+<ng-container >
+    <mat-tab-group>
+        <mat-tab label="News">
+            <all-news [newPost]="newPostReceived()" />
+        </mat-tab>
+        <mat-tab label="Post a new">
+            <post-new (newPostOutput)="newPostHandler($event)" />
+        </mat-tab>
+    </mat-tab-group>      
+</ng-container>

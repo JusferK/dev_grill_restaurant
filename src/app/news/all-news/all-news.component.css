@@ -1,0 +1,76 @@
+.centered {
+    height: 86.5vh;
+    width: 99.9%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sub-container {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    overflow: hidden;
+    background-color: white;
+    gap: 10px;
+}
+
+.sub-container-2 {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    overflow-y: auto;
+    background-color: white;
+    gap: 10px;
+}
+
+.card-1 {
+    height: 65%;
+    width: 75%;
+    margin-top: 30px;
+}
+
+.card-2 {
+    height: 32%;
+    width: 75%;
+}
+
+::ng-deep .p-menu-list {
+    margin: 0px;
+    padding: 0px;
+}
+
+::ng-deep .p-menu-list a {
+    text-decoration: none;
+}
+
+.content-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-1-content {
+    height: auto;
+    width: 75%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.text-class {
+    overflow-wrap: break-word;
+    max-width: 100%;
+    padding: 10px;
+    margin: 10px;
+}
+
+textarea {
+    resize: none;
+}

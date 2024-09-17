@@ -1,0 +1,53 @@
+<p-toast />
+<div class="centered">
+    <form class="new-form" [formGroup]="newPost">
+        <div class="form-floating mb-3" style="height: 10%;">
+            <input
+                type="text"
+                class="form-control"
+                id="floatingInput" 
+                placeholder="Title" 
+                formControlName="title" 
+                [ngClass]="{'is-invalid': newPost.get('title')?.invalid && newPost.get('title')?.touched}">
+            <label for="floatingInput">Title</label>
+            @if(newPost.get('title')?.hasError('required')) {
+                <div class="invalid-feedback">A description is required</div>            
+            } @else if(newPost.get('title')?.hasError('maxlength')) {
+                <div class="invalid-feedback">A maximum of 45 has been exceed</div>
+            } @else if(newPost.get('title')?.hasError('pattern')) {
+                <div class="invalid-feedback">Only characters & special characters allowed.</div>
+            }
+        </div>
+        <div class="form-floating" style="height: 20%;">
+            <textarea 
+                class="form-control" 
+                [ngClass]="{'is-invalid': newPost.get('text')?.invalid && newPost.get('text')?.touched}" 
+                placeholder="What are your thoughts?" 
+                id="textarea-input" 
+                style="height: 15vh; resize: none;" 
+                formControlName="text"
+            >
+            </textarea>
+            <label for="textarea-input">What are your thoughts?</label>
+            @if(newPost.get('text')?.hasError('required')) {
+                <div class="invalid-feedback">A description is required</div>            
+            } @else if(newPost.get('text')?.hasError('maxlength')) {
+                <div class="invalid-feedback">A maximum of 300 has been exceed</div>
+            } @else if(newPost.get('text')?.hasError('pattern')) {
+                <div class="invalid-feedback">Only characters & special characters allowed.</div>
+            }
+        </div>
+        <div class="upload-file-container">
+            <div class="below">
+                <div class="preview_container" (click)="fileInput.click()" >
+                    <img [src]="imagePreview()" [ngClass]="{'preview_image': imagePreview() === 'preview_icon.svg', 'conditional_preview_image': imagePreview() !== 'preview_icon.svg'}" alt="preview">
+                </div>
+                <button type="button" mat-raised-button (click)="fileInput.click()"><img src="upload_icon.svg"> Choose a photo</button>
+                <input type="file" hidden (change)="onFileSelected($event)" #fileInput id="file" accept="image/*" >
+            </div>
+        </div>
+        <div class="send-form-btn">
+            <p-button label="Send" (onClick)="onSubmit()" [disabled]="this.newPost.invalid"/>
+        </div>
+    </form>
+</div>
