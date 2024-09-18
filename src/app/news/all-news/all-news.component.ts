@@ -174,7 +174,6 @@ export class AllNewsComponent implements OnInit, OnDestroy, OnChanges {
 
     this._dialog.open(ConfirmationDialogNewsComponent).afterClosed().subscribe((answer => {
       if(answer) {
-        console.log(new_item);
 
         this._dialog.open(ConfirmationDialogComponent, {
           data: {

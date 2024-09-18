@@ -16,7 +16,13 @@ export class AdministratorApiService {
   constructor() { }
 
   loginAdmin(user: string, password: string): Observable<IAdministrator | boolean> {
-    return this._myApiService.get<IAdministrator>(`${this.baseURL}/admin-login/${user}/${password}`);
+
+    const body = {
+      user: user,
+      password: password
+    }
+
+    return this._myApiService.post<IAdministrator>(`${this.baseURL}/admin-login/${user}/${password}`, body);
   }
 
   updatePassword(id: number, body: IAdministrator): Observable<IAdministrator> {
