@@ -8,7 +8,7 @@ import { INews } from '../models/news.model';
 })
 export class NewsApiService {
 
-  baseURL: string = 'http://192.168.10.18:8080/news';
+  baseURL: string = 'http://192.168.10.23:8080/news';
   //baseURL: string = 'http://localhost:8080/news';
   private _httpClient = inject(HttpClient);
 

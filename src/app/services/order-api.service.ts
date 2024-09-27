@@ -8,7 +8,7 @@ import { IOrderRequest } from '../models/order-request.model';
 })
 export class OrderApiService {
 
-  baseURL: string = 'http://192.168.10.18:8080/orders';
+  baseURL: string = 'http://192.168.10.23:8080/orders';
   //baseURL: string = 'http://localhost:8080/orders';
   private _httpClient = inject(HttpClient);
 

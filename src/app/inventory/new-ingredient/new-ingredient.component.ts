@@ -67,10 +67,13 @@ export class NewIngredientComponent implements OnDestroy {
             error: (error: any) => {
               this.newIngredientForm.reset();
                 this.errorReturned.set(true);
-                this.notificationSignalSend.set(true);
                 error.error.message === 'Ingredient is already on records' ? this.typeOfError.set(error.error.message) : this.typeOfError.set('An error has ocurred, try later');
+                this.notificationSignalSend.set(true);
                 setTimeout(() => {
                   this.notificationSignalSend.set(false);
+                  this.typeOfError.set
+                  this.typeOfError.set('');
+                  this.errorReturned.set(false);
                 }, 5000);
             }
           })

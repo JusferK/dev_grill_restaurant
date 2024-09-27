@@ -8,7 +8,7 @@ import { IUser } from '../models/user.model';
 })
 export class UserApiService {
 
-  baseURL: string = 'http://192.168.10.18:8080/user';
+  baseURL: string = 'http://192.168.10.23:8080/user';
   //baseURL: string = 'http://localhost:8080/user';
   private _httpClient = inject(HttpClient);
 

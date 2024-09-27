@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 
 export class MenuApiService {
 
-  baseURL: string = 'http://192.168.10.18:8080/menu';
+  baseURL: string = 'http://192.168.10.23:8080/menu';
   //baseURL: string = 'http://localhost:8080/menu';
   private _httpClient = inject(HttpClient);
 
