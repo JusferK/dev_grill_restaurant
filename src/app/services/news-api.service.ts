@@ -8,11 +8,12 @@ import { INews } from '../models/news.model';
 })
 export class NewsApiService {
 
-  baseURL: string = 'http://192.168.10.23:8080/news';
-  //baseURL: string = 'http://localhost:8080/news';
+  baseURL: string;
   private _httpClient = inject(HttpClient);
 
-  constructor() {}
+  constructor() {
+    this.baseURL = `${window.location.protocol}//${window.location.hostname}:8080/news`;
+  }
 
   getAllNews(): Observable<INews[]> {
     return this._httpClient.get<INews[]>(`${this.baseURL}/all-news`);

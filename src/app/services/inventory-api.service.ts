@@ -8,11 +8,12 @@ import { IIngredient } from '../models/ingredient.model';
 })
 export class InventoryApiService {
 
-  baseURL: string = 'http://192.168.10.23:8080/ingredients';
-  //baseURL: string = 'http://localhost:8080/ingredients';
+  baseURL: string;
   private _httpClient = inject(HttpClient);
   
-  constructor() { }
+  constructor() {
+    this.baseURL = `${window.location.protocol}//${window.location.hostname}:8080/ingredients`;
+  }
 
   getInventory(): Observable<IIngredient[]> {
     return this._httpClient.get<IIngredient[]>(`${this.baseURL}/all-ingredients`);

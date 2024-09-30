@@ -40,7 +40,6 @@
 <ng-container *ngIf="!isLoading()">
     <div class="centered">
         <div class="sub-container-2">
-            <!---------------------------------------------Iterable for starts here --------------------------------------------->
             @for (item of newsList(); track $index) {
                 <div class="card-1-content">
                     <form [formGroup]="updateNewForm">
@@ -110,8 +109,6 @@
                     </form>
                 </div>
             }
-
-            <!---------------------------------------------Iterable for ends here ----------------------------------------------->
         </div>
     </div>
 

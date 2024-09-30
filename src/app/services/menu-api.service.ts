@@ -9,11 +9,12 @@ import { Observable } from 'rxjs';
 
 export class MenuApiService {
 
-  baseURL: string = 'http://192.168.10.23:8080/menu';
-  //baseURL: string = 'http://localhost:8080/menu';
+  baseURL: string;
   private _httpClient = inject(HttpClient);
 
-  constructor() { }
+  constructor() {
+    this.baseURL = `${window.location.protocol}//${window.location.hostname}:8080/menu`;
+  }
 
   getAllMenus(): Observable<IMenu[]> {
     return this._httpClient.get<IMenu[]>(`${this.baseURL}/all-menus`);

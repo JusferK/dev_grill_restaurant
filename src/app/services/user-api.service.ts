@@ -8,11 +8,12 @@ import { IUser } from '../models/user.model';
 })
 export class UserApiService {
 
-  baseURL: string = 'http://192.168.10.23:8080/user';
-  //baseURL: string = 'http://localhost:8080/user';
+  baseURL: string;
   private _httpClient = inject(HttpClient);
 
-  constructor() { }
+  constructor() {
+    this.baseURL = `${window.location.protocol}//${window.location.hostname}:8080/user`;
+  }
 
   getAllUsers(): Observable<IUser[]> {
     return this._httpClient.get<IUser[]>(`${this.baseURL}/all-users`);

@@ -8,11 +8,12 @@ import { IOrderRequest } from '../models/order-request.model';
 })
 export class OrderApiService {
 
-  baseURL: string = 'http://192.168.10.23:8080/orders';
-  //baseURL: string = 'http://localhost:8080/orders';
+  baseURL: string;
   private _httpClient = inject(HttpClient);
 
-  constructor() { }
+  constructor() {
+    this.baseURL = `${window.location.protocol}//${window.location.hostname}:8080/orders`;
+  }
 
   getAllOrderRequests(): Observable<IOrderRequest[]> {
     return this._httpClient.get<IOrderRequest[]>(`${this.baseURL}/all-orders-placed`);
