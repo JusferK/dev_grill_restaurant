@@ -3,7 +3,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { ProfileServiceService } from '../../services/profile-service.service';
 import { IAdministrator } from '../../models/administrator.model';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'home-content',

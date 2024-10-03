@@ -115,13 +115,13 @@ export class UpdateDialogFormComponent implements OnInit, OnDestroy {
               this.ifRecieved.set(true);
               setTimeout(() => {
                 this._dialog.close();
-              }, 3000);
+              }, 1000);
             } else {
               this.isLoading.set(false);
               this.ifRecieved.set(true);
               setTimeout(() => {
                 this._dialog.close(data);
-              }, 3000);
+              }, 1000);
             }
           }
         },
@@ -132,10 +132,10 @@ export class UpdateDialogFormComponent implements OnInit, OnDestroy {
           this.ifRecieved.set(true);
           setTimeout(() => {
             this._dialog.close();
-          }, 3000);
+          }, 1000);
         }
       });
-    }, 3000);
+    }, 2000);
   }
 
 }

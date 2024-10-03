@@ -1,9 +1,9 @@
-import { Component, inject, input, OnChanges, OnInit, output, signal, SimpleChanges } from '@angular/core';
+import { Component, inject, input, OnChanges, output, SimpleChanges } from '@angular/core';
 import { IIngredient } from '../../models/ingredient.model';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { map, Observable, of, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { UpdateDialogFormComponent } from './update-dialog-form/update-dialog-form.component';
 import { NgFor } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';

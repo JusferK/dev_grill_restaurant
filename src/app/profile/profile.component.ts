@@ -113,6 +113,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     setTimeout(() => {
       this.notificationSignalSend.set(false);
-    }, 10000);
+    }, 5000);
   }
 }

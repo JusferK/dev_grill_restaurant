@@ -68,12 +68,8 @@ export class AllNewsComponent implements OnInit, OnDestroy, OnChanges {
     this.newsListSuscription = this._newsApiService.getAllNews().subscribe({
       next: (data: INews[]) => {
         this.newsList.set(data);
-        
         data.forEach(() => this.updateActive.update((prev) => [...prev, false]));
-
-        setTimeout(() => {
-          this.isLoading.set(false);
-        }, 3500)
+        this.isLoading.set(false);
       },
       error: () => {
         this.isLoading.set(false);
@@ -159,12 +155,10 @@ export class AllNewsComponent implements OnInit, OnDestroy, OnChanges {
         next: (data: INews) => {
           this.newsList()[index] = data;
           this.newsList.set([...this.newsList()]);
-          setTimeout(() => {
-            this._dialog.closeAll();
-            this._messageService.add({severity: 'success', summary: 'Success', detail: 'New was updated successfully.'});
-            this.updateActive()[index] = false;
-            this.updateNewForm.reset();
-          }, 3000)
+          this._dialog.closeAll();
+          this._messageService.add({severity: 'success', summary: 'Success', detail: 'New was updated successfully.'});
+          this.updateActive()[index] = false;
+          this.updateNewForm.reset();
         }
       })
     }
@@ -185,16 +179,12 @@ export class AllNewsComponent implements OnInit, OnDestroy, OnChanges {
 
         if(new_item.idNewsItem) {
           this._newsApiService.deleteNew(new_item.idNewsItem)
-
-          setTimeout(() => {
-            this._dialog.closeAll();
-            this._messageService.add({severity: 'success', summary: 'Success', detail: 'New was deleted successfully.'});
-            this.updateActive()[index] = false;
-
-            this.newsList.update((prev) => prev.filter((item) => item.idNewsItem !== new_item.idNewsItem));
-            this.updateActive.set([]);
-            this.newsList().forEach(() => this.updateActive.update(prev => [...prev, false]));
-          }, 3000)
+          this._dialog.closeAll();
+          this._messageService.add({severity: 'success', summary: 'Success', detail: 'New was deleted successfully.'});
+          this.updateActive()[index] = false;
+          this.newsList.update((prev) => prev.filter((item) => item.idNewsItem !== new_item.idNewsItem));
+          this.updateActive.set([]);
+          this.newsList().forEach(() => this.updateActive.update(prev => [...prev, false]));
         }
 
       }

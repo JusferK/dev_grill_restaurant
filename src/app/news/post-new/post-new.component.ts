@@ -86,7 +86,7 @@ export class PostNewComponent {
           this._messageService.add({severity: 'success', summary: 'Success', detail: 'Post was made successfully'});
           this.newPost.reset();
           this.imagePreview.set('preview_icon.svg');
-        }, 3000);
+        }, 1000);
       }
     });
     

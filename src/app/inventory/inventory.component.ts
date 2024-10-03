@@ -30,10 +30,7 @@ export class InventoryComponent implements OnInit, OnDestroy{
       next: (data: IIngredient[]) => {
         if(data) {
           this.ingredientList.set(data);
-          setTimeout(() => {
-            this.isLoading.set(false);
-          }, 2000);
-
+          this.isLoading.set(false);
         }
       },
       error: () => {

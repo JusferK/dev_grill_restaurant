@@ -62,7 +62,7 @@ export class NewIngredientComponent implements OnDestroy {
                 this.notificationSignalSend.set(true);
                 setTimeout(() => {
                   this.notificationSignalSend.set(false);
-                }, 5000);
+                }, 1000);
             },
             error: (error: any) => {
               this.newIngredientForm.reset();
@@ -74,7 +74,7 @@ export class NewIngredientComponent implements OnDestroy {
                   this.typeOfError.set
                   this.typeOfError.set('');
                   this.errorReturned.set(false);
-                }, 5000);
+                }, 1000);
             }
           })
         }

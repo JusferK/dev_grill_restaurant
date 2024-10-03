@@ -310,7 +310,7 @@ export class NewMenuComponent implements OnInit, OnDestroy {
 
             setTimeout(() => {
               this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Menu has been added' });
-            }, 3000);
+            }, 2000);
           },
           error: (error: any) => {
 

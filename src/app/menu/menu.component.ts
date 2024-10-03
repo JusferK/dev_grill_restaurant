@@ -30,10 +30,7 @@ export class MenuComponent implements OnInit, OnDestroy {
       next: (data: IMenu[]) => {
         if(data) {
           this.menuList.set(data);
-
-          setTimeout(() => {
-            this.isLoading.set(false);
-          }, 1000);
+          this.isLoading.set(false);
         }
       },
       error: () => {

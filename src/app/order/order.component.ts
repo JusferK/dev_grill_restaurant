@@ -125,9 +125,7 @@ export class OrderComponent implements OnInit{
           }
         });
 
-        setTimeout(() => {
-          this.isLoading.set(false);
-        }, 1000);
+        this.isLoading.set(false);
       },
       error: () => {
         this.isLoading.set(false);
@@ -208,10 +206,7 @@ export class OrderComponent implements OnInit{
                 return [...prev, specialBody];
               });
 
-              setTimeout(() => {
-                this.menuIsLoading.set(false);
-              }, 1000);
-
+              this.menuIsLoading.set(false);
             }
           } 
         })

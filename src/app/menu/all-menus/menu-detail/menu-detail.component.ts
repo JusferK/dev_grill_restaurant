@@ -52,7 +52,6 @@ export class MenuDetailComponent implements OnInit {
       if(menuIngredient.idIngredient) {
         this._ingredientApiService.getIngredient(menuIngredient.idIngredient).subscribe({
           next: (data: IIngredient) => {
-
             if(data.idIngredient) {
               const customeInfo: customInterface = {
                 id: data.idIngredient,
@@ -60,7 +59,6 @@ export class MenuDetailComponent implements OnInit {
                 quantity: menuIngredient.quantity,
                 stock: data.stock
               }
-
               this.ingredientInfoList.update((prev) => [...prev, customeInfo]);
               if(this.menuDetailShow) {
                 if(this.ingredientInfoList().length === this.menuDetailShow().menuIngredientListList.length) {
@@ -70,9 +68,6 @@ export class MenuDetailComponent implements OnInit {
                 }
               }
             }
-
-
-
           }
         }); 
       }

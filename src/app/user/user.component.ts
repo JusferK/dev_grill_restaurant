@@ -28,11 +28,9 @@ export class UserComponent implements OnInit{
       next: (data: IUser[]) => {
         this.userList.set(data);
 
-        setTimeout(() => {
-          this.isLoading.set(false);
-        }, 1000);
+        this.isLoading.set(false);
       },
-      error: (error: any) => {
+      error: () => {
         this.isLoading.set(false);
         this.returnedError.set(true);
       }
