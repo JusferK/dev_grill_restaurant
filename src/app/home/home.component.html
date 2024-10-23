@@ -67,9 +67,20 @@
                 <mat-icon matBadge="{{ this.pendingOrders.ordersPending() }}" id="order-icon"><img src="food_order.svg" alt="order icon"></mat-icon>
                 <p id="special-icon">{{ iconName()[5] }}</p>
             </li>
+            <li 
+            (mouseover)="mouseOverHandle('providers')"
+            (mouseout)="mouseOutHandler(6)"
+            [routerLink]="['/providers']"
+            routerLinkActive="router-link-active"
+            [ngClass]="{'activeLiElement': iconAreActive()[6]}"
+            (click)="clickHandler(6, 'Providers')"
+            >
+                <img src="providers_icon.svg" alt="news icon">
+                <p>{{ iconName()[6] }}</p>
+            </li>
         </ul>
     </mat-drawer>
-    <mat-drawer-content style="position: relative; height: auto;">
+    <mat-drawer-content style="position: relative; height: 100%;">
         <div class="d-flex justify-content-between">
             <button mat-mini-fab (click)="sideNavClicked()" id="hideBar">
                 <mat-icon>menu</mat-icon>

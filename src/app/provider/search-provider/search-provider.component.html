@@ -1,0 +1,98 @@
+<p-toast />
+<div class="main-container">
+    <div class="sub-main">
+        <form
+            class="form-as-container"
+            [formGroup]="searchForProvider"
+        >
+            <p-inputGroup class="item">
+                <p-inputGroupAddon>
+                    <i class="pi pi-user"></i>
+                </p-inputGroupAddon>
+                <input
+                    pInputText
+                    placeholder="Name"
+                    formControlName="name"
+                />
+            </p-inputGroup>
+            <p-inputGroup class="item">
+                <p-inputGroupAddon>
+                    <i class="pi pi-user"></i>
+                </p-inputGroupAddon>
+                <input
+                    pInputText
+                    placeholder="Nit"
+                    formControlName="nit" 
+                    pKeyFilter="int"
+                />
+            </p-inputGroup>
+            <button
+                type="button"
+                pButton
+                label="Search"
+                [label]="infoBusy() ? 'Search' : 'Reset'"
+                class="item"
+                (click)="infoBusy() ? onSearchProvider() : reset()"
+                [disabled]="searchForProvider.invalid"
+            >
+            </button>
+        </form>
+    </div>
+    <div class="container-container">
+        <p-table
+            [value]="providerFound()"
+            [tableStyle]="{ 'width': '100%', 'height': '100px', 'border': '1px solid rgba(0, 0, 0, 0.1)' }"
+            dataKey="provider_id"
+            [expandedRowKeys]="expandedRows"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 5rem"></th>
+                    <th pSortableColumn="provider_id">Provider ID<p-sortIcon field="provider_id" /></th>
+                    <th pSortableColumn="name">Name<p-sortIcon field="name" /></th>
+                    <th pSortableColumn="nit">Nit <p-sortIcon field="nit" /></th>
+                    <th pSortableColumn="added_date">Added date<p-sortIcon field="added_date" /></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-provider let-expanded="expanded">
+                <tr>
+                    <td>
+                        <p-button type="button" pRipple [pRowToggler]="provider" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                    </td>
+                    <td>{{ provider.provider_id }}</td>
+                    <td>{{ provider.name }}</td>
+                    <td>{{ provider.nit }}</td>
+                    <td>{{ provider.added_date | date: 'longDate' }}</td>
+                    <td></td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="rowexpansion" let-provider>
+                <tr>
+                    <td colspan="7">
+                        <div class="p-3">
+                            <p-table [value]="provider.phone_list" dataKey="provider_id">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th pSortableColumn="phone_id">Phone ID<p-sortIcon field="phone_id" /></th>
+                                        <th pSortableColumn="phone">Phone<p-sortIcon field="phone" /></th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-phone let-index="rowIndex">
+                                    <tr>
+                                        <td>{{ phone.phone_id }}</td>
+                                        <td>{{ phone.phone }}</td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage">
+                                    <tr>
+                                        <td colspan="6">There are no phone numbers registered yet.</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

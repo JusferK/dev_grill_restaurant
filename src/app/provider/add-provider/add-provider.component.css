@@ -1,0 +1,92 @@
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 10px;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.main-container h2 {
+    text-align: center;
+}
+
+.form-container {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 10px;
+    margin: 10px;
+}
+
+.form-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 40px;
+}
+
+.phone-list-side {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.phone-list-toggled {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    margin: 40px;
+    padding: 10px;
+    height: 220px;
+    overflow-x: hidden;
+}
+
+.form-side, .phone-list-side {
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    margin: 40px;
+    padding: 40px;
+}
+
+.form-phone-list {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    width: 100%;
+    height: 90%;
+    overflow: hidden;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.sub-content-container {
+    width: 100%;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+.btn-form-phone-list button {
+    width: 100%;
+}
+
+.action-field {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}

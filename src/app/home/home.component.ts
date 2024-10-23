@@ -18,13 +18,25 @@ import { OrderPendingServiceService } from '../services/order-pending-service.se
 @Component({
   selector: 'home',
   standalone: true,
-  imports: [MatSidenavModule, MatIconModule, MatDividerModule, MatButtonModule, MatBadgeModule, NgIf, RouterLink, RouterOutlet, NgClass, MatMenuModule, HomeContentComponent],
+  imports: [
+    MatSidenavModule,
+    MatIconModule,
+    MatDividerModule,
+    MatButtonModule,
+    MatBadgeModule,
+    NgIf,
+    RouterLink,
+    RouterOutlet,
+    NgClass,
+    MatMenuModule,
+    HomeContentComponent
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit{
 
-  sideNavOpen = signal<Boolean>(true);
+  sideNavOpen = signal<Boolean>(false);
   mouseOverSignal = signal<Boolean>(false);
   iconName = signal<String[]>(['Home', '', '', '', '']);
   iconAreActive = signal<boolean[]>([true, false, false, false]);
@@ -35,9 +47,19 @@ export class HomeComponent implements OnInit{
   private _router = inject(Router);
   private _ordersApiService = inject(OrderApiService);
   pendingOrders = inject(OrderPendingServiceService);
+
+  constructor() {
+    const pivot =localStorage.getItem('is-open');
+    if(pivot) {
+      let value: boolean = JSON.parse(pivot);
+      this.sideNavOpen.set(value);
+    }
+  }
+
+  
   
   ngOnInit(): void {
-    const urlDirectories = ['inventory', 'menu', 'news', 'users', 'order'];
+    const urlDirectories = ['inventory', 'menu', 'news', 'users', 'order', 'providers'];
 
     urlDirectories.forEach((directory: string, index: number) => {
       if(this._router.url.includes(directory)) {
@@ -69,7 +91,8 @@ export class HomeComponent implements OnInit{
   }
 
   sideNavClicked(): void {
-    this.sideNavOpen() ? this.sideNavOpen.set(false) : this.sideNavOpen.set(true);
+    this.sideNavOpen.update((prev) => !prev);
+    localStorage.setItem('is-open', JSON.stringify(this.sideNavOpen()));
   }
 
   mouseOverHandle(element: String): void {    
@@ -109,6 +132,12 @@ export class HomeComponent implements OnInit{
         if(!this.iconAreActive()[5]) {
           this.indexIcon.set(5);
           temporalArray[this.indexIcon()] = 'Orders';
+        }
+        break;
+      case 'providers':
+        if(!this.iconAreActive()[6]) {
+          this.indexIcon.set(6);
+          temporalArray[this.indexIcon()] = 'Providers';
         }
         break;
     }

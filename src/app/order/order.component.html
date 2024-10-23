@@ -18,7 +18,6 @@
                         }
                     </p-inputGroup>
                 </form>
-                <!-------------------------------------------------->
                 <ng-container *ngIf="!isSearching()">
                     <div class="card" style="width: 100%; margin-top: 10px;">
                         <p-toast />
@@ -133,7 +132,6 @@
                         </p-table>
                     </div>
                 </ng-container>
-                <!----------------------------------------------------  Search order part   ---------------------------------------------------->
                 <ng-container *ngIf="isSearching()">
                     <ng-container *ngIf="isFetching()">
                         <div class="centered">
@@ -149,8 +147,14 @@
                         <ng-container *ngIf="!notFound()">
                             <div class="card" style="width: 100%; margin-top: 10px;">
                                 <p-toast />
-                                <p-table [value]="orderSearched()" dataKey="idOrderRequest" [tableStyle]="{ 'min-width': '60rem' }"
-                                    [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
+                                <p-table
+                                    [value]="orderSearched()"
+                                    dataKey="idOrderRequest"
+                                    [tableStyle]="{ 'min-width': '60rem' }"
+                                    [expandedRowKeys]="expandedRows" 
+                                    (onRowExpand)="onRowExpand($event)" 
+                                    (onRowCollapse)="onRowCollapse($event)"
+                                >
                                     <ng-template pTemplate="header">
                                         <tr>
                                             <th style="width: 5rem"></th>
@@ -263,12 +267,6 @@
                         </ng-container>
                     </ng-container>
                 </ng-container>
-    
-    
-                
-    
-                 <!-------------------------------------------------->
-    
             </div>
         </div>
     </ng-container>

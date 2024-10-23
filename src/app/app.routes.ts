@@ -11,6 +11,7 @@ import { loginGuardGuard } from './auth/login-guard.guard';
 import { HomeContentComponent } from './home/home-content/home-content.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NewsComponent } from './news/news.component';
+import { ProviderComponent } from './provider/provider.component';
 
 export const routes: Routes = [
     {path: 'login', component: LoginComponent, canActivate: [loginGuardGuard]},
@@ -25,7 +26,8 @@ export const routes: Routes = [
             {path: 'order', component: OrderComponent, canActivate: [authGuard]},
             {path: 'users', component: UserComponent, canActivate: [authGuard]},
             {path: 'profile', component: ProfileComponent, canActivate: [authGuard]},
-            {path: 'news', component: NewsComponent, canActivate: [authGuard]}
+            {path: 'news', component: NewsComponent, canActivate: [authGuard]},
+            {path: 'providers', component: ProviderComponent, canActivate: [authGuard]}
         ]
     },
     {path: '**', component: NotFoundComponent}

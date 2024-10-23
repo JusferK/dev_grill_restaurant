@@ -49,7 +49,6 @@ export class InventoryComponent implements OnInit, OnDestroy{
   }
 
   updateOutputHandler(updatedList: IIngredient[]) {
-    console.log(updatedList);
     this.ingredientList.set(updatedList);
   }
 

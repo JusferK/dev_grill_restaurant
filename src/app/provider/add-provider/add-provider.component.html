@@ -1,0 +1,93 @@
+<div class="main-container">
+    <h2 mat-dialog-title>Add a provider</h2>
+    <form [formGroup]="newProvderForm" >
+        <div class="form-container">
+            <div class="form-side">
+                <div>
+                    <p-floatLabel>
+                        <input
+                            pInputText
+                            formControlName="name" 
+                            type="text"
+                            [ngClass]="{'ng-invalid ng-dirty': hasError('name')}"
+                        />
+                        <label for="name">Name</label>
+                    </p-floatLabel>
+                    @if(hasError('name')) {
+                        <small id="name" severity="danger">
+                            Name is required to filled
+                        </small>
+                    }
+                </div>
+                <div>
+                    <p-floatLabel>
+                        <input 
+                            pInputText
+                            formControlName="nit"
+                            pKeyFilter="int"
+                            [ngClass]="{'ng-invalid ng-dirty': hasError('nit')}"
+                        />
+                        <label for="nit">Nit</label>
+                    </p-floatLabel>
+                    @if(hasError('nit')) {
+                        <small id="nit" severity="danger">
+                            Nit is required
+                        </small>
+                    }
+                </div>
+            </div>
+            <div [ngClass]="{'phone-list-side': !addPhoneList(), 'phone-list-toggled': addPhoneList() }">
+                <ng-container *ngIf="!addPhoneList()">
+                    <p>Add phone numbers?</p>
+                    <p-button label="Yes" (onClick)="addPhones()" />            
+                </ng-container>
+                <ng-container *ngIf="addPhoneList()">
+                    <div class="form-phone-list">
+                        <div class="sub-content-container">
+                            <p-table [value]="phoneList()" [tableStyle]="{ 'width': '200px', 'height': '100px' }">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>Phone</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-rowIndex="rowIndex">
+                                    <tr formArrayName="phone_list">
+                                        <td>
+                                            <p-floatLabel>
+                                                <input
+                                                    pInputText
+                                                    [formControlName]="rowIndex"
+                                                    type="number"
+                                                    pKeyFilter="int"
+                                                />
+                                                <label for="phone">Phone</label>
+                                            </p-floatLabel>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                        <p-button 
+                            icon="pi pi-plus"
+                            class="btn-form-phone-list"
+                            (onClick)="oneMorePhone()"
+                        />
+                    </div>                    
+                </ng-container>
+            </div>
+        </div>
+    </form>
+    <div class="action-field">
+        <p-button
+            icon="pi pi-plus"
+            label="Add"
+            (onClick)="sendProvider()"
+            [disabled]="newProvderForm.invalid"
+        />
+        <p-button 
+            label="Cancel"
+            mat-dialog-close
+            severity="danger"
+        />
+    </div>
+</div>

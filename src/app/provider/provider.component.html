@@ -1,0 +1,198 @@
+<p-toast />
+<ng-container *ngIf="isLoading()">
+    <div class="spinner-container">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-container>
+<ng-container *ngIf="!isLoading()">
+    <div class="general-content">
+        <div class="sub-content-container">
+            <div class="card">
+                <form [formGroup]="updateForm">
+                    <p-table 
+                        [value]="providersList()"
+                        dataKey="provider_id"
+                        (onRowExpand)="onRowExpand($event)"
+                        (onRowCollapse)="onRowCollapse($event)"
+                        [tableStyle]="{ 'min-width': '60rem' }"
+                        [expandedRowKeys]="expandedRows"
+                    >
+                      <ng-template pTemplate="caption">
+                          <div class="options-container">
+                            <p-button 
+                                label="Add provider"
+                                icon="pi pi-plus"
+                                (onClick)="onAddProvider()"
+                            />
+                            <p-button
+                                label="Search provider"
+                                icon="pi pi-search"
+                                (onClick)="onSearchProvider()"
+                            />
+                          </div>
+                      </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 5rem"></th>
+                                <th pSortableColumn="provider_id">Provider ID<p-sortIcon field="provider_id" /></th>
+                                <th pSortableColumn="name">Name<p-sortIcon field="name" /></th>
+                                <th pSortableColumn="nit">Nit <p-sortIcon field="nit" /></th>
+                                <th pSortableColumn="added_date">Added date<p-sortIcon field="added_date" /></th>
+                                <th> </th>
+                                <th> </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template
+                            pTemplate="body" 
+                            let-provider 
+                            let-expanded="expanded" 
+                            let-index="rowIndex"
+                        >
+                            <tr>
+                              <td>
+                                <p-button
+                                  type="button"
+                                  pRipple [pRowToggler]="provider"
+                                  [text]="true"
+                                  [rounded]="true"
+                                  [plain]="true"
+                                  [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+                                  [disabled]="addNewPhoneSignal()"
+                                />
+                              </td>
+                                <td>{{ provider.provider_id }}</td>
+                                <td>
+                                  @if(!updateList()[index]) {
+                                      {{ provider.name }}
+                                  } @else {
+                                      <input
+                                          pInputText
+                                          formControlName="name"
+                                          type="text"
+                                          [ngClass]="{'ng-invalid ng-dirty': hasError('name')}"
+                                      />
+                                  }
+                                </td>
+                                <td>
+                                  @if(!updateList()[index]) {
+                                      {{ provider.nit }}
+                                  } @else {
+                                      <input
+                                          pInputText
+                                          formControlName="nit" 
+                                          type="text"
+                                          [ngClass]="{'ng-invalid ng-dirty': hasError('name')}"
+                                      />
+                                  }
+                                </td>
+                                <td>{{ provider.added_date | date: 'longDate' }}</td>
+                                <td>
+                                  <p-button
+                                      [label]="!updateList()[index] ? 'Update' : 'Send'"
+                                      icon="pi pi-user-edit"
+                                      (onClick)="!updateList()[index] ? updateProvider(index, provider) : sendUpdateRequest(index)"
+                                      [disabled]="!updateList()[index] && isBusy()"
+                                  />
+                                </td>
+                                <td>
+                                  <p-button
+                                      [label]="!updateList()[index] ? 'Remove' : 'Cancel'"
+                                      [icon]="!updateList()[index] ? 'pi pi-minus' : ''"
+                                      severity="danger"
+                                      (onClick)="!updateList()[index] ? removeProvider(provider) : cancelAction(index)"
+                                  />
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="rowexpansion" let-provider>
+                            <tr>
+                                <td colspan="7">
+                                    <div class="p-3">
+                                        <p-table [value]="provider.phone_list" dataKey="provider_id">
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                    <th pSortableColumn="phone_id">Phone ID<p-sortIcon field="phone_id" /></th>
+                                                    <th pSortableColumn="phone">Phone<p-sortIcon field="phone" /></th>
+                                                    <th> </th>
+                                                    <th> </th>
+                                                    <th>
+                                                        <p-button
+                                                            [label]="!addNewPhoneSignal() ? 'Add Phone' : 'Send'"
+                                                            [icon]="!addNewPhoneSignal() ? 'pi pi-plus' : 'pi pi-check'"
+                                                            (onClick)="!addNewPhoneSignal() ? addNewPhoneTrigger(provider) : addNewPhone(provider)"
+                                                        />
+                                                    </th>
+                                                    <th>
+                                                        @if (addNewPhoneSignal()) {
+                                                            <p-button
+                                                                label="Cancel"
+                                                                severity="danger"
+                                                                (onClick)="cancelNewPhone(provider)"
+                                                            />
+                                                        }
+                                                    </th>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-phone let-index="rowIndex">
+                                                <tr>
+                                                    <td>{{ phone.phone_id }}</td>
+                                                    <td>
+                                                        @if(phoneUpdateList()[index]) {
+                                                            @if(addNewPhoneSignal()) {
+                                                                <form [formGroup]="newPhoneForm">
+                                                                    <input
+                                                                        pInputText
+                                                                        [ngClass]="{'ng-invalid ng-dirty': newPhoneForm.get('phone')?.invalid && newPhoneForm.get('phone')?.touched}"
+                                                                        formControlName="phone"
+                                                                    />
+                                                                </form>
+                                                            } @else {
+                                                                <form [formGroup]="updatePhoneForm">
+                                                                    <div formArrayName="phone_list">
+                                                                        <input
+                                                                            pInputText
+                                                                            [formControlName]="index"
+                                                                        />
+                                                                    </div>
+                                                                </form>
+                                                            }
+                                                        } @else {
+                                                            {{ phone.phone }}
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                      <p-button 
+                                                        [label]="phoneUpdateList()[index] && !addNewPhoneSignal() ? 'Send' : 'Update'"
+                                                        icon="pi pi-pencil"
+                                                        (onClick)="phoneUpdateList()[index] ? updatePhoneHandler(phone, index) : updateListTrigger(index)"
+                                                        [disabled]="isBusy() && !phoneUpdateList()[index]"
+                                                        [disabled]="addNewPhoneSignal()"
+                                                    />
+                                                    </td>
+                                                    <td>
+                                                      <p-button
+                                                        [label]="phoneUpdateList()[index] && !addNewPhoneSignal() ? 'Cancel' : 'Remove'"
+                                                        icon="pi pi-minus" 
+                                                        severity="danger"
+                                                        (onClick)="phoneUpdateList()[index] && !addNewPhoneSignal() ? cancelUpdateListTrigger(index, provider.phone_list) : removePhoneHandler(phone) "
+                                                        [disabled]="addNewPhoneSignal()"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="emptymessage">
+                                                <tr>
+                                                    <td colspan="6">There are no phone numbers registered yet.</td>
+                                                </tr>
+                                            </ng-template>
+                                        </p-table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-container>
