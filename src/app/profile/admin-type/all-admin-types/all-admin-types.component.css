@@ -1,12 +1,3 @@
-.centered {
-    margin: 20px;
-    height: 82vh;
-    width: 97%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .general-content {
     position: relative;
     overflow: hidden;
@@ -26,7 +17,12 @@
     align-items: center;
 }
 
-::ng-deep .p-dropdown-items {
-    padding: 0;
-    margin: 0;
+.custom-style-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 10px;
+    width: 50%;
+    height: auto;
+    align-items: center;
 }

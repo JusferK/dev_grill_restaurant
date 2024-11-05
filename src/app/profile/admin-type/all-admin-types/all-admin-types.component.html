@@ -1,0 +1,13 @@
+<div class="general-content">
+  <div class="sub-content-container">
+    <div class="card flex justify-content-center custom-style-card">
+      @for (admin of adminTypeList(); track $index) {
+        <p-card header="{{ admin | description }}" [style]="{ width: '360px', margin: '10px' }">
+          <ng-template pTemplate="header">
+              <img alt="Card" [src]="admin.photo" style="border: 1px solid rgba(0, 0, 0, 0.2);" />
+          </ng-template>
+        </p-card>
+      }
+    </div>
+  </div>
+</div>

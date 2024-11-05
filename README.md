@@ -1,27 +1,22 @@
-# DevGrillRestaurant
+# Dev grill manager app.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.1.
+## What is this app about?
 
-## Development server
+This app is a final project from Programacion II. All requirement requested can be found on this [link](https://docs.google.com/document/d/1m0DaWefU_RFxRm9aje2VQYYZM32QhrhAEodK4v9Eqm4/edit?tab=t.0#heading=h.2fwhesllj3h6) (instructions in spanish).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Key Features:
+- Query, update & create stock for ingredients
+- Query users register on the [mobile app](https://github.com/JusferK/dev_grill_customer).
+- Query & update orders placed from the [mobile app](https://github.com/JusferK/dev_grill_customer).
+- Query & create menus
+- Query, update, delete & create news that will be viewd on the mobile app.
+- Query, update, delete & create new providers.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Installation
+### Prerequisites
+- Node.js > 18
+- Angular CLI 18
+- [Backend](https://github.com/JusferK/dev_grill-api)
+- [DB diagram](https://drive.google.com/file/d/1Gt2ZzWmlbmyGIQIox_0EhCBx33VdUYdH/view?usp=drive_link).
+- SQL (for this project, used the 8.0.39 sql version)
+- npm

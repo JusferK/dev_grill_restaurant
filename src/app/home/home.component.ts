@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit{
   
   
   ngOnInit(): void {
-    const urlDirectories = ['inventory', 'menu', 'news', 'users', 'order', 'providers'];
+    const urlDirectories = ['inventory', 'menu', 'news', 'users', 'order', 'providers', 'admin-type'];
 
     urlDirectories.forEach((directory: string, index: number) => {
       if(this._router.url.includes(directory)) {
@@ -184,6 +184,10 @@ export class HomeComponent implements OnInit{
 
   profileClickHandler(): void {
     this._router.navigate(['/profile']);
+  }
+
+  adminTypeClickHandler(): void {
+    this._router.navigate(['/admin-type']);
   }
 
   logoutHandler(): void {

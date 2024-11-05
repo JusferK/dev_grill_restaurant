@@ -1,0 +1,46 @@
+<p-toast />
+<form [formGroup]="newAdminTypeForm" class="main-container-style">
+    <div class="sub-container">
+        <div class="flex justify-content-center text-area-style-container">
+            <p-floatLabel>
+                <textarea 
+                    id="float-input" 
+                    rows="5"
+                    cols="30" 
+                    pInputTextarea
+                    formControlName="description"
+                    style="resize: none;"
+                    (input)="updateCount()"
+                >
+                </textarea>
+                <label for="float-input">Description</label>
+            </p-floatLabel>
+            <span style="align-self: self-end;">{{ count() }}/45</span>
+        </div>
+        <div class="image-button-container">
+            <div class="preview_container" (click)="inputFile.click()">
+                <img [src]="imagePreview()" class="preview_image">
+            </div>
+            <p-button
+                label="Upload photo"
+                (click)="inputFile.click()"
+                icon="pi pi-arrow-up"
+                [outlined]="true"
+            />
+            <input
+                type="file"
+                hidden
+                #inputFile
+                (change)="onFileSelected($event)"
+                accept="image/*"
+            >
+        </div>
+        <p-button
+            label="Send"
+            (click)="sendNewAdminType()"
+            icon="pi pi-send"
+            [outlined]="true"
+            [disabled]="newAdminTypeForm.invalid"
+        />
+    </div>
+</form>

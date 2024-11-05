@@ -1,0 +1,14 @@
+<ng-container>
+    <mat-tab-group>
+        <mat-tab label="Administrator type details" dynamicHeight>
+            <div class="content-container">
+                <all-admin-types [adminTypeList]="adminTypeList()" />
+            </div>
+        </mat-tab>
+        <mat-tab label="New Administrator type">
+            <div class="content-container">
+                <new-admin (newAdminType)="newAdminHandler($event)" />
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</ng-container>

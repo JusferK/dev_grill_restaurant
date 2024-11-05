@@ -12,6 +12,7 @@ import { HomeContentComponent } from './home/home-content/home-content.component
 import { ProfileComponent } from './profile/profile.component';
 import { NewsComponent } from './news/news.component';
 import { ProviderComponent } from './provider/provider.component';
+import { AdminTypeComponent } from './profile/admin-type/admin-type.component';
 
 export const routes: Routes = [
     {path: 'login', component: LoginComponent, canActivate: [loginGuardGuard]},
@@ -27,7 +28,8 @@ export const routes: Routes = [
             {path: 'users', component: UserComponent, canActivate: [authGuard]},
             {path: 'profile', component: ProfileComponent, canActivate: [authGuard]},
             {path: 'news', component: NewsComponent, canActivate: [authGuard]},
-            {path: 'providers', component: ProviderComponent, canActivate: [authGuard]}
+            {path: 'providers', component: ProviderComponent, canActivate: [authGuard]},
+            {path: 'admin-type', component: AdminTypeComponent, canActivate: [authGuard]}
         ]
     },
     {path: '**', component: NotFoundComponent}

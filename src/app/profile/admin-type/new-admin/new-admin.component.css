@@ -1,0 +1,52 @@
+.main-container-style {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 87vh;
+}
+
+.sub-container {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background: white;
+}
+
+.image-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.text-area-style-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.preview_container {
+    width: 80%;
+    height: 80%;
+    border: 1px dotted rgba(0, 0, 255, 0.5);
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 20px;
+    transition: ease-out 300ms;
+}
+
+.preview_image {
+    height: 200px;
+    width: 80%;
+    object-fit: contain;
+}
+
+.preview_container:hover {
+    cursor: pointer;
+    transition: ease-in 300ms;
+    border: 2px solid rgba(0, 0, 255, 1);
+}

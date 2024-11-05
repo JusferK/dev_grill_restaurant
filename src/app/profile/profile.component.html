@@ -8,6 +8,18 @@
             <label for="admin-user" class="form-label">User</label>
             <input type="text" id="admin-user" class="form-control form_input" formControlName="user">
         </div>
+        <div class="mb-3">
+            <label for="admin-type" class="form-label">Admin type</label>
+            <select 
+                class="form-select form_input"
+                formControlName="administratorTypeIdAdministratorType"
+                id="admin-type"
+            >
+                @for (item of comboSelector(); track $index) {z
+                    <option [value]="item.idAdministratorType" [selected]="" >{{ item | description }}</option>
+                }
+            </select>
+        </div>
         <div class="mb-3 password_input">
             <label for="admin-user">Password</label>
             <div class="d-flex password_container">
@@ -52,7 +64,7 @@
     </form>
     <ng-container *ngIf="notificationSignalSend()">
         <div class="alert alert-success notification" role="alert">
-            <p>password has been updated!</p>
+            <p>Admin information has been updated!</p>
         </div>
     </ng-container>
 </div>
